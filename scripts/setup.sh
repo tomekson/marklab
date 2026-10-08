@@ -3,7 +3,7 @@
 # a nainstaluje dewatermark. watermarks-remover je stdlib-only, nic neinstaluje.
 # Volby:
 #   --with-synthid   samostatný venv .venv-synthid s torch/transformers pro reverse-SynthID-text (GB stahování)
-#   --sync-js        přepíše docs/vendor/dewatermark-unicode z vendor/dewatermark/web
+#   --sync-js        přepíše docs/lib/dewatermark-unicode z vendor/dewatermark/web
 set -euo pipefail
 cd "$(dirname "$0")/.."
 ROOT=$(pwd)
@@ -24,8 +24,8 @@ uv pip install --python .venv/bin/python -e vendor/dewatermark
 .venv/bin/dewatermark --version
 
 if [ "$SYNC_JS" = 1 ]; then
-  cp vendor/dewatermark/web/{sanitizer.mjs,unicode-policy.mjs,sanitizer.d.ts,LICENSE} docs/vendor/dewatermark-unicode/
-  echo "docs/vendor/dewatermark-unicode synchronizováno"
+  cp vendor/dewatermark/web/{sanitizer.mjs,unicode-policy.mjs,sanitizer.d.ts,LICENSE} docs/lib/dewatermark-unicode/
+  echo "docs/lib/dewatermark-unicode synchronizováno"
 fi
 
 if [ "$WITH_SYNTHID" = 1 ]; then

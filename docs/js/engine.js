@@ -1,7 +1,7 @@
 // Prohlížečový engine: deterministický Unicode cleanup + česká pravidla + normalizovaný report v1.
 // Nic neopouští prohlížeč. Statistická mitigace zde není (jen přes lokální bridge).
-import { inspectText, sanitizeTextWithReport } from "../vendor/dewatermark-unicode/sanitizer.mjs";
-import { POLICY_VERSION } from "../vendor/dewatermark-unicode/unicode-policy.mjs";
+import { inspectText, sanitizeTextWithReport } from "../lib/dewatermark-unicode/sanitizer.mjs";
+import { POLICY_VERSION } from "../lib/dewatermark-unicode/unicode-policy.mjs";
 import { wordDiff, diffStats } from "./diff.js";
 
 export const SCHEMA_VERSION = "1.0";
