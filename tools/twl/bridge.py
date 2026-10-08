@@ -49,7 +49,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/api/health":
-            return self._json(200, {"ok": True, "service": "text-watermark-lab bridge", "version": __version__})
+            return self._json(200, {"ok": True, "service": "marklab bridge", "version": __version__})
         if self.path == "/api/capabilities":
             return self._json(200, {"ok": True, "tools": capabilities(), "version": __version__})
         if self.path.startswith("/api/"):
@@ -86,7 +86,7 @@ def main() -> None:
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8777
     host = sys.argv[2] if len(sys.argv) > 2 else "127.0.0.1"
     httpd = ThreadingHTTPServer((host, port), Handler)
-    print(f"text-watermark-lab bridge: http://{host}:{port}/  (dashboard + /api, Ctrl+C ukončí)")
+    print(f"marklab bridge: http://{host}:{port}/  (dashboard + /api, Ctrl+C ukončí)")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

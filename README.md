@@ -1,9 +1,9 @@
-# text-watermark-lab (Vodoznak lab)
+# marklab (Vodoznak lab)
 
 Lokální dashboard pro analýzu a odstranění AI text watermarkingu v **českém textu**.
 Statický frontend pro GitHub Pages + volitelný lokální Python bridge nad třemi upstream nástroji.
 
-Online (po publikaci): https://tomekson.github.io/text-watermark-lab/
+Online (po publikaci): https://tomekson.github.io/marklab/
 
 ## TL;DR
 
@@ -102,9 +102,9 @@ Detail: [notes/ARCHITECTURE.md](notes/ARCHITECTURE.md).
 
 ## Publikace na GitHub Pages
 
-1. `gh repo create tomekson/text-watermark-lab --public --source . --push`
-2. Settings → Pages → Source: branch `main`, folder `/docs` (nebo `gh api -X POST repos/tomekson/text-watermark-lab/pages -f source[branch]=main -f source[path]=/docs`).
-3. Stránka bude na `https://tomekson.github.io/text-watermark-lab/` vedle `bananovnik`. Všechny cesty jsou relativní.
+1. `gh repo create tomekson/marklab --public --source . --push`
+2. Settings → Pages → Source: branch `main`, folder `/docs` (nebo `gh api -X POST repos/tomekson/marklab/pages -f source[branch]=main -f source[path]=/docs`).
+3. Stránka bude na `https://tomekson.github.io/marklab/` vedle `bananovnik`. Všechny cesty jsou relativní.
 4. Na Pages je dostupný jen prohlížečový režim; bridge zůstává lokální.
 
 ## Jak doplnit další detektor nebo model

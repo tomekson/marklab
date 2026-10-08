@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://tomekson.github.io/text-watermark-lab/schemas/report.v1.json",
-  "title": "text-watermark-lab normalized report v1",
+  "$id": "https://tomekson.github.io/marklab/schemas/report.v1.json",
+  "title": "marklab normalized report v1",
   "type": "object",
   "required": ["schema_version", "tool", "mode", "input_text", "output_text", "changes_count",
                "removed_unicode_count", "rewritten_segments_count", "findings", "diff",

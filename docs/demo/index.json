@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-08T09:53:47.794Z",
+ "generated_at": "2026-10-08T10:01:53.248Z",
  "samples": [
   {
    "sample": "01-bezny-odstavec.txt",
@@ -16,7 +16,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "1af0476a50ed",
-     "elapsed_ms": 58.49
+     "elapsed_ms": 53.31
     },
     {
      "tool": "dewatermark",
@@ -27,40 +27,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "1af0476a50ed",
-     "elapsed_ms": 0.47
-    },
-    {
-     "tool": "watermarks-remover",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1af0476a50ed",
-     "elapsed_ms": 43.51
-    },
-    {
-     "tool": "reverse-synthid",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1af0476a50ed",
-     "elapsed_ms": 0
-    },
-    {
-     "tool": "dewatermark",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1af0476a50ed",
-     "elapsed_ms": 2.41
+     "elapsed_ms": 0.45
     }
    ]
   },
@@ -79,7 +46,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "d1664ab7acac",
-     "elapsed_ms": 56.1
+     "elapsed_ms": 51.63
     },
     {
      "tool": "dewatermark",
@@ -90,40 +57,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "fe03a22a44e8",
-     "elapsed_ms": 0.44
-    },
-    {
-     "tool": "watermarks-remover",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "b262ad3b2f57",
-     "elapsed_ms": 39.12
-    },
-    {
-     "tool": "reverse-synthid",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "b262ad3b2f57",
-     "elapsed_ms": 0
-    },
-    {
-     "tool": "dewatermark",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 13,
-     "removed_unicode_count": 13,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "fe03a22a44e8",
-     "elapsed_ms": 1.7
+     "elapsed_ms": 0.4
     }
    ]
   },
@@ -142,7 +76,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "29e6beb30a88",
-     "elapsed_ms": 59.95
+     "elapsed_ms": 52.07
     },
     {
      "tool": "dewatermark",
@@ -153,40 +87,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "29e6beb30a88",
-     "elapsed_ms": 0.4
-    },
-    {
-     "tool": "watermarks-remover",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 20,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "666bf33d9e08",
-     "elapsed_ms": 78.44
-    },
-    {
-     "tool": "reverse-synthid",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 20,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "666bf33d9e08",
-     "elapsed_ms": 0
-    },
-    {
-     "tool": "dewatermark",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 26,
-     "removed_unicode_count": 6,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "8780f398dfb6",
-     "elapsed_ms": 3.48
+     "elapsed_ms": 0.36
     }
    ]
   },
@@ -205,7 +106,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "d443714a19ed",
-     "elapsed_ms": 85.29
+     "elapsed_ms": 52.81
     },
     {
      "tool": "dewatermark",
@@ -216,40 +117,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "d443714a19ed",
-     "elapsed_ms": 0.56
-    },
-    {
-     "tool": "watermarks-remover",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "34575be5cb4a",
-     "elapsed_ms": 42.93
-    },
-    {
-     "tool": "reverse-synthid",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "34575be5cb4a",
-     "elapsed_ms": 0
-    },
-    {
-     "tool": "dewatermark",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 8,
-     "removed_unicode_count": 8,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "7b1e0f0c0d6f",
-     "elapsed_ms": 2.25
+     "elapsed_ms": 0.55
     }
    ]
   },
@@ -268,7 +136,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "1898f549bd72",
-     "elapsed_ms": 59.46
+     "elapsed_ms": 54.94
     },
     {
      "tool": "dewatermark",
@@ -279,40 +147,7 @@
      "rewritten_segments_count": 0,
      "verification_status": "unicode_verified",
      "output_sha_prefix": "1898f549bd72",
-     "elapsed_ms": 2.81
-    },
-    {
-     "tool": "watermarks-remover",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1898f549bd72",
-     "elapsed_ms": 41.58
-    },
-    {
-     "tool": "reverse-synthid",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1898f549bd72",
-     "elapsed_ms": 0
-    },
-    {
-     "tool": "dewatermark",
-     "mode": "statistical",
-     "kind": "statistical",
-     "changes_count": 0,
-     "removed_unicode_count": 0,
-     "rewritten_segments_count": 0,
-     "verification_status": "unsupported",
-     "output_sha_prefix": "1898f549bd72",
-     "elapsed_ms": 6.87
+     "elapsed_ms": 2.71
     }
    ]
   }

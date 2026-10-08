@@ -1,4 +1,4 @@
-"""text-watermark-lab: lokální orchestrátor nad třemi upstream nástroji.
+"""marklab: lokální orchestrátor nad třemi upstream nástroji.
 
 Veřejné API: twl.core (normalizovaný report), twl.adapters.* (jeden adapter = jeden
 upstream nástroj), twl.bridge (lokální HTTP server), twl.cli (příkazová řádka).

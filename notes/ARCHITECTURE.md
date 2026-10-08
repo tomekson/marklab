@@ -1,4 +1,4 @@
-# Architektura text-watermark-lab
+# Architektura marklab
 
 Datum návrhu: 8. října 2026.
 
