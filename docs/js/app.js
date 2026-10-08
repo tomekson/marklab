@@ -1,6 +1,6 @@
-import * as engine from "./engine.js";
-import * as bridge from "./bridge.js";
-import { docxToText } from "./docx.js";
+import * as engine from "./engine.js?v=0.2.1";
+import * as bridge from "./bridge.js?v=0.2.1";
+import { docxToText } from "./docx.js?v=0.2.1";
 
 const $ = (s) => document.querySelector(s);
 const input = $("#input"), status = $("#status");

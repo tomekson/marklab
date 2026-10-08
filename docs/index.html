@@ -140,10 +140,10 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d==='dar
   </section>
 </main>
 
-<footer class="foot"><span>Statická stránka. Bez serveru, bez analytiky, text zůstává v prohlížeči.</span><span class="mono" id="version">v0.2.0</span></footer>
+<footer class="foot"><span>Statická stránka. Bez serveru, bez analytiky, text zůstává v prohlížeči.</span><span class="mono" id="version">v0.2.1</span></footer>
 
 <script type="module">
-import("./js/app.js").catch((e) => {
+import("./js/app.js?v=0.2.1").catch((e) => {
   const s = document.getElementById("status");
   s.textContent = "Aplikace se nenačetla: " + e.message + " (zkontrolujte, že jsou dostupné soubory v js/ a vendor/).";
   s.className = "status err";
