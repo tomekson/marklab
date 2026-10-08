@@ -3,171 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vodoznak lab – analýza a čištění AI vodoznaků v českém textu</title>
-<meta name="description" content="Lokální dashboard pro odstranění skrytých Unicode znaků a experimentální mitigaci statistických vodoznaků v českém textu. Text neopouští prohlížeč.">
+<title>marklab – skryté znaky a AI vodoznaky v českém textu</title>
+<meta name="description" content="Lokální nástroj: ukáže skryté Unicode znaky v textu, odstraní je a řekne, co se nedá ověřit. Text neopouští prohlížeč.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#F2EFE6">
+<meta name="theme-color" content="#F4F5F7">
 <script>
-(function(){var s=null;try{s=localStorage.getItem('twl-theme')}catch(e){}
+(function(){var s=null;try{s=localStorage.getItem('marklab-theme')}catch(e){}
 var d=s==='dark'?'dark':'light';document.documentElement.dataset.theme=d;
-var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d==='dark'?'#141A1E':'#F2EFE6';})();
+var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d==='dark'?'#0F1115':'#F4F5F7';})();
 </script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header class="top">
   <div class="top-inner">
-    <a class="logo-row" href="./">
-      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="26" height="26"><path d="M14 20h24M14 28h18M14 36h24M14 44h12" stroke="currentColor" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="40" cy="44" r="5" fill="currentColor"/></svg></span>
-      <span><span class="logo-name">Vodoznak lab</span><span class="logo-sub">marklab · čeština</span></span>
-    </a>
+    <a class="brand" href="./"><span class="dot" aria-hidden="true"></span>marklab <small>skryté znaky v textu</small></a>
     <div class="top-right">
-      <span id="bridge-pill" class="pill pill-muted" title="Lokální bridge (tools/twl/bridge.py) rozšiřuje dashboard o Python nástroje.">bridge: zjišťuji…</span>
-      <button id="theme-toggle" class="btn-ico theme-toggle" type="button" aria-label="Přepnout tmavý režim">
-        <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg class="ic-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span id="bridge-pill" class="pill pill-off" title="Lokální bridge (scripts/run-local.sh) přidá Python nástroje.">bridge —</span>
+      <button id="theme-toggle" class="btn-ico" type="button" aria-label="Přepnout tmavý režim">
+        <svg class="ic-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="ic-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="hero">
-    <h1>Co je ve vašem textu schované a co s tím jde udělat</h1>
-    <p class="lead">Vložte český text, nechte ho zanalyzovat a očistit. Všechno v režimu <strong>Prohlížeč</strong> běží lokálně, text nikam neodchází.</p>
-    <div class="notice notice-two">
-      <div><span class="tag tag-det">Deterministické</span> <strong>Unicode cleanup</strong>: odstraní zero-width znaky, tag znaky, exotické mezery, bidi kontroly. Stejný výsledek při každém běhu, ověřitelný inspekcí.</div>
-      <div><span class="tag tag-exp">Experimentální</span> <strong>Statistická mitigace</strong>: přepis textu modelem. Nedeterministická, u češtiny může změnit význam a <em>neexistuje</em> veřejný detektor, který by potvrdil odstranění produkčního vodoznaku Claude nebo Gemini.</div>
-    </div>
-  </section>
+  <div class="intro">
+    <h1>Vložte text. Skryté znaky se ukážou hned, čištění je na jedno kliknutí.</h1>
+    <p>Zero-width mezery, tag znaky, exotické mezery a bidi kontroly odstraní deterministický cleanup přímo v prohlížeči. Statistický vodoznak (SynthID, KGW) tím nezmizí a žádný veřejný detektor to neověří.</p>
+  </div>
 
-  <section class="card" id="input-card">
-    <div class="card-head">
-      <h2>Vstup</h2>
-      <div class="card-tools">
-        <label class="sel-wrap">Ukázka
-          <select id="sample-select"><option value="">— vybrat —</option></select>
-        </label>
-        <button id="btn-clear" class="btn-sec btn-sm" type="button">Vymazat</button>
+  <section class="bench" id="bench" aria-label="Vstup">
+    <div class="bench-head">
+      <span class="eyebrow">Vstup</span>
+      <div class="right">
+        <label class="linkbtn">Nahrát soubor <input id="file" type="file" accept=".txt,.md,.markdown,.html,.htm,.docx,text/plain,text/html,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
+        <label class="eyebrow">Ukázka <select id="sample-select"><option value="">–</option></select></label>
+        <button id="btn-clear" class="linkbtn" type="button">Vymazat</button>
       </div>
     </div>
-    <div id="drop" class="drop">
-      <textarea id="input" rows="9" spellcheck="false" placeholder="Sem vložte text… nebo přetáhněte soubor .txt / .md / .html / .docx"></textarea>
-      <div class="drop-foot">
-        <label class="file-label">Nahrát soubor <input id="file" type="file" accept=".txt,.md,.markdown,.html,.htm,.docx,text/plain,text/html,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></label>
-        <span id="input-meta" class="meta">0 znaků</span>
-      </div>
+    <textarea id="input" rows="7" spellcheck="false" placeholder="Sem vložte text, nebo přetáhněte .txt / .md / .html / .docx"></textarea>
+    <div class="xray">
+      <span class="eyebrow">Rentgen</span>
+      <span></span>
+      <span id="xray-count" class="xray-count">0 znaků</span>
+      <div id="xray-view" class="xray-view" aria-live="polite"></div>
     </div>
-
-    <details class="opts" open>
-      <summary>Nastavení</summary>
-      <div class="opts-grid">
-        <fieldset>
-          <legend>Engine</legend>
-          <label class="radio"><input type="radio" name="engine" value="browser" checked> <span>Prohlížeč <small>lokálně, bez serveru</small></span></label>
-          <label class="radio"><input type="radio" name="engine" value="watermarks-remover" disabled> <span>Bridge: watermarks-remover <small>primární nástroj (23 k★), Layer A + Layer B</small></span></label>
-          <label class="radio"><input type="radio" name="engine" value="dewatermark" disabled> <span>Bridge: dewatermark <small><span class="tag tag-exp">málo ověřený</span> 7★, jen křížová kontrola</small></span></label>
-          <label class="radio"><input type="radio" name="engine" value="reverse-synthid" disabled> <span>Bridge: reverse-SynthID-text <small>EN, referenční detektor</small></span></label>
-        </fieldset>
-        <fieldset>
-          <legend>Čeština a vstup</legend>
-          <label class="check"><input type="checkbox" id="opt-czech" checked> <span>Zachovat pevné mezery po předložkách a v číslech <small>k domu, 1 000 Kč</small></span></label>
-          <label class="check"><input type="checkbox" id="opt-entities" checked> <span>Dekódovat HTML entity <small>&amp;nbsp; &amp;#8203;</small></span></label>
-          <label class="check"><input type="checkbox" id="opt-strip"> <span>Odstranit HTML značky <small>automaticky u .html</small></span></label>
-          <label class="check"><input type="checkbox" id="opt-strict" checked> <span>Přísný profil (výchozí) <small>jako watermarks-remover Layer A: smaže všechny formátovací znaky vč. Word Joiner a soft hyphen</small></span></label>
-        </fieldset>
-        <fieldset id="stat-opts">
-          <legend>Statistická mitigace (bridge)</legend>
-          <label class="sel-wrap">Taktika / metoda
-            <select id="opt-tactic">
-              <option value="paraphrase">paraphrase</option>
-              <option value="humanize">humanize</option>
-              <option value="structural">structural</option>
-              <option value="chunk">chunk</option>
-            </select>
-          </label>
-          <p class="hint">Bez nakonfigurovaného lokálního LLM (Ollama) vrátí watermarks-remover jen připravený prompt. Viz README.</p>
-        </fieldset>
-      </div>
-    </details>
-
     <div class="actions">
-      <button id="act-analyze" class="btn-start" type="button" data-mode="analyze">Analyzovat</button>
-      <button id="act-sanitize" class="btn-start" type="button" data-mode="sanitize">Očistit Unicode</button>
-      <button id="act-stat" class="btn-sec btn-exp" type="button" data-mode="statistical" title="Vyžaduje lokální bridge">Statistická mitigace <span class="tag tag-exp">exp</span></button>
-      <button id="act-compare" class="btn-sec" type="button" data-mode="compare">Porovnat pipeline</button>
+      <button id="act-sanitize" class="btn btn-primary" type="button" data-mode="sanitize">Očistit</button>
+      <button id="act-analyze" class="btn" type="button" data-mode="analyze">Jen analyzovat</button>
+      <button id="act-compare" class="btn" type="button" data-mode="compare">Porovnat nástroje</button>
+      <button id="act-stat" class="btn btn-exp" type="button" data-mode="statistical" title="Vyžaduje lokální bridge">Přepsat modelem<span class="exp">exp</span></button>
+      <span class="spacer"></span>
+      <details>
+        <summary>Nastavení</summary>
+        <div class="settings">
+          <fieldset>
+            <legend>Nástroj</legend>
+            <label class="radio"><input type="radio" name="engine" value="browser" checked> <span>Prohlížeč <small>lokálně, bez serveru</small></span></label>
+            <label class="radio"><input type="radio" name="engine" value="watermarks-remover" disabled> <span>Bridge: watermarks-remover <small>primární, 23 k★</small></span></label>
+            <label class="radio"><input type="radio" name="engine" value="dewatermark" disabled> <span>Bridge: dewatermark <small><span class="tag tag-warn">7★</span> jen křížová kontrola</small></span></label>
+            <label class="radio"><input type="radio" name="engine" value="reverse-synthid" disabled> <span>Bridge: reverse-SynthID-text <small>anglický, referenční detektor</small></span></label>
+            <label class="eyebrow" style="margin-top:6px">Taktika přepisu <select id="opt-tactic"><option value="paraphrase">paraphrase</option><option value="humanize">humanize</option><option value="structural">structural</option><option value="chunk">chunk</option></select></label>
+          </fieldset>
+          <fieldset>
+            <legend>Čeština a vstup</legend>
+            <label class="check"><input type="checkbox" id="opt-strict" checked> <span>Přísný profil <small>smaže všechny formátovací znaky (jako watermarks-remover)</small></span></label>
+            <label class="check"><input type="checkbox" id="opt-czech" checked> <span>Vrátit pevné mezery <small>za k, s, v, z a v číslech (1 000 Kč)</small></span></label>
+            <label class="check"><input type="checkbox" id="opt-entities" checked> <span>Dekódovat HTML entity <small>&amp;nbsp; &amp;#8203;</small></span></label>
+            <label class="check"><input type="checkbox" id="opt-strip"> <span>Odstranit HTML značky <small>zapne se u .html</small></span></label>
+          </fieldset>
+        </div>
+      </details>
     </div>
     <p id="status" class="status" aria-live="polite"></p>
   </section>
 
-  <section id="results" class="results" hidden>
-    <div class="result-head">
-      <h2 id="result-title">Výsledek</h2>
-      <div class="result-tools">
-        <button id="dl-txt" class="btn-sec btn-sm" type="button">Stáhnout .txt</button>
-        <button id="dl-json" class="btn-sec btn-sm" type="button">Stáhnout .json</button>
-        <button id="copy-out" class="btn-sec btn-sm" type="button">Kopírovat výstup</button>
-      </div>
+  <section id="results" class="result" hidden aria-label="Výsledek">
+    <div class="result-tools">
+      <span id="result-title" class="eyebrow">Výsledek</span>
+      <button id="copy-out" class="btn" type="button">Kopírovat očištěný text</button>
+      <button id="dl-txt" class="btn" type="button">Stáhnout .txt</button>
+      <button id="dl-json" class="btn" type="button">Stáhnout report .json</button>
     </div>
+    <div id="verify-box" class="verdict"></div>
+    <div class="numbers" id="summary-cards"></div>
 
-    <div class="cards" id="summary-cards"></div>
-
-    <div id="verify-box" class="verify"></div>
-
-    <div class="grid-2">
-      <div class="panel">
-        <h3>Nálezy <span id="findings-count" class="count"></span></h3>
-        <ul id="findings" class="findings"></ul>
-      </div>
-      <div class="panel">
-        <h3>Omezení a nejistota</h3>
-        <ul id="limits" class="limits"></ul>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Před / po</h3>
+    <div class="section">
+      <div class="section-head">
+        <h2>Před a po</h2>
         <div class="seg" role="tablist">
           <button class="seg-btn active" data-view="inline" type="button">Diff</button>
           <button class="seg-btn" data-view="side" type="button">Vedle sebe</button>
-          <button class="seg-btn" data-view="reveal" type="button">Zviditelnit znaky</button>
         </div>
       </div>
-      <div id="diff-inline" class="diff-view"></div>
-      <div id="diff-side" class="diff-view side" hidden>
-        <div><h4>Vstup</h4><pre id="side-in"></pre></div>
-        <div><h4>Výstup</h4><pre id="side-out"></pre></div>
+      <div class="section-body">
+        <div id="diff-inline" class="diff-view"></div>
+        <div id="diff-side" class="diff-view side" hidden>
+          <div><h3>Vstup</h3><pre id="side-in"></pre></div>
+          <div><h3>Výstup</h3><pre id="side-out"></pre></div>
+        </div>
       </div>
-      <div id="diff-reveal" class="diff-view" hidden><pre id="reveal-pre"></pre></div>
     </div>
 
-    <div id="compare-panel" class="panel" hidden>
-      <h3>Porovnání pipeline</h3>
-      <div class="table-wrap"><table id="compare-table"><thead><tr><th>Nástroj</th><th>Režim</th><th>Typ</th><th>Změn</th><th>Unicode</th><th>Přepsané segmenty</th><th>Stav</th><th>ms</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="section">
+      <div class="section-head"><h2>Nálezy</h2><span id="findings-count" class="mono eyebrow"></span></div>
+      <div class="table-wrap"><table id="findings-table"><thead><tr><th>Znak</th><th>Co to je</th><th>Počet</th><th>Akce</th><th>Závažnost</th></tr></thead><tbody id="findings"></tbody></table></div>
+    </div>
+
+    <div id="compare-panel" class="section" hidden>
+      <div class="section-head"><h2>Porovnání nástrojů</h2></div>
+      <div class="table-wrap"><table id="compare-table"><thead><tr><th>Nástroj</th><th>Režim</th><th>Typ</th><th>Změn</th><th>Unicode</th><th>Přepsáno</th><th>Stav</th><th>ms</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>Co výsledek neříká</h2></div>
+      <div class="section-body"><ul id="limits" class="limits"></ul></div>
     </div>
   </section>
 
-  <section class="card demo">
-    <div class="card-head"><h2>Ukázkové výsledky</h2><span class="meta">vygenerované lokálním orchestrátorem nad <code>sample-data/</code></span></div>
-    <p class="hint">Tyto reporty vznikly spuštěním všech pěti pipeline (2 deterministické, 3 statistické) přes Python bridge. Stavy <em>unsupported</em> u statistických pipeline jsou záměrné: bez lokálního modelu nástroje nic nepřepisují a nic netvrdí.</p>
+  <section class="section" aria-label="Ukázky">
+    <div class="section-head"><h2>Ukázkové texty</h2><span class="eyebrow">reporty ze všech pipeline, z lokálního bridge</span></div>
     <div id="demo-list" class="demo-list"></div>
   </section>
 
-  <section class="card about">
-    <h2>Jak to funguje</h2>
-    <ol class="how">
-      <li><strong>Analýza</strong>: inspekce tabulkou Unicode rozsahů (převzatá z projektu <code>dewatermark</code>, který má jen 7★; tabulku jsem proto porovnal s <code>watermarks-remover</code> a rozdíl je jen ve Word Joineru). Nálezy mají tři stupně: <em>actionable</em> (odstranit), <em>contextual</em> (nahradit mezerou), <em>informational</em> (legitimní kontext, zachovat).</li>
-      <li><strong>Očištění</strong>: výchozí přísný profil smaže všechny formátovací znaky jako <code>watermarks-remover</code> Layer A; volitelný safe profil zachová emoji joinery, bidi v RTL kontextu a variační selektory. České pevné mezery se po očištění vrací zpět.</li>
-      <li><strong>Ověření</strong>: stejná inspekce nad výstupem. Stav <em>unicode_verified</em> znamená jen „politika už nic nehlásí“, ne „text je bez vodoznaku“.</li>
-      <li><strong>Statistika</strong> (jen s bridge): přepis modelem přes <code>watermarks-remover</code>, <code>dewatermark remove</code> nebo <code>reverse-SynthID-text</code>. Výstup je vždy <em>mitigation_unverified</em>, dokud ho neověří kompatibilní nezávislý detektor.</li>
-    </ol>
-    <p class="meta">Zdroje: <a href="https://github.com/guillaumemeyer/watermarks-remover">watermarks-remover</a> (MIT, primární) · <a href="https://github.com/cyzanfar/text-watermark-remover">dewatermark</a> (MIT, 7★, jen křížová kontrola) · <a href="https://github.com/aloshdenny/reverse-SynthID-text">reverse-SynthID-text</a> (Apache-2.0) · <a href="https://github.com/tomekson/marklab">kód tohoto dashboardu</a></p>
+  <section class="about">
+    <h2>Jak to číst</h2>
+    <dl>
+      <dt>ověřeno</dt><dd>Po očištění stejná inspekce nic nehlásí. Platí jen pro skryté Unicode znaky.</dd>
+      <dt>přísný profil</dt><dd>Smaže všechny formátovací znaky (včetně Word Joiner a soft hyphen) stejně jako <a href="https://github.com/guillaumemeyer/watermarks-remover">watermarks-remover</a>. Safe profil z projektu <a href="https://github.com/cyzanfar/text-watermark-remover">dewatermark</a> (7★, jen křížová kontrola) nechává znaky s možným legitimním použitím.</dd>
+      <dt>pevné mezery</dt><dd>Nástroje je mění na obyčejné; za jednopísmennými předložkami a v číslech je marklab vrací, protože to je správná česká typografie.</dd>
+      <dt>přepsat modelem</dt><dd>Experimentální. Jen s lokálním bridge a lokálním LLM. Výsledek je vždy „neověřeno“, dokud ho nepotvrdí kompatibilní detektor, a pro Claude ani Gemini takový veřejně není. U češtiny hrozí posun významu.</dd>
+    </dl>
+    <p><a href="https://github.com/tomekson/marklab">Kód a README</a> · reverse-SynthID-text (Apache-2.0) jen přes bridge.</p>
   </section>
 </main>
 
-<footer class="foot"><span>Vodoznak lab · statická stránka, bez analytiky, bez serveru.</span><span id="version">v0.1.0</span></footer>
+<footer class="foot"><span>Statická stránka. Bez serveru, bez analytiky, text zůstává v prohlížeči.</span><span class="mono" id="version">v0.2.0</span></footer>
 
-<script type="module" src="js/app.js"></script>
+<script type="module">
+import("./js/app.js").catch((e) => {
+  const s = document.getElementById("status");
+  s.textContent = "Aplikace se nenačetla: " + e.message + " (zkontrolujte, že jsou dostupné soubory v js/ a vendor/).";
+  s.className = "status err";
+});
+</script>
 </body>
 </html>
