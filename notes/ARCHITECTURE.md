@@ -14,6 +14,8 @@ Datum návrhu: 8. října 2026.
 
 ## Rozhodnutí
 
+0. **Důvěra v upstream (doplněno 8. 10. 2026):** dewatermark má 7★ a jediného autora, watermarks-remover 23 k★. Primární nástroj je proto watermarks-remover (výchozí v bridge i v compare), prohlížeč má výchozí přísný profil, který jeho Layer A aproximuje. dewatermark zůstává jako křížová kontrola a zdroj JS tabulky rozsahů (porovnána, rozdíl jen WJ).
+
 1. **Dvojí architektura.** Statický frontend (`docs/`) + lokální bridge (`tools/twl/bridge.py`). Bridge servíruje `docs/` i `/api` na jedné origin: žádný CORS ani mixed-content problém. Z GitHub Pages (https) se bridge na `http://127.0.0.1` typicky nepřipojí (mixed content / Private Network Access), proto je lokální provoz primární cestou pro Python nástroje a Pages je „jen prohlížeč“.
 2. **Prohlížečový engine = vendorovaný JS port dewatermark.** Stejná politika jako Python balíček, cross-runtime golden testy upstream. Ověřeno: shodné počty nálezů (13) na vzorku `02-zero-width`.
 3. **Přísný profil v prohlížeči** (`strictSweep`: smaže všechny `\p{Cf}` kromě ZWJ v emoji sekvenci) aproximuje watermarks-remover Layer A, aby „Porovnat pipeline“ dávalo smysl i bez bridge.

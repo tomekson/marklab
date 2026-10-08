@@ -12,14 +12,14 @@
  "findings": [
   {
    "category": "pipeline",
-   "label": "dewatermark / sanitize: unicode_verified",
+   "label": "watermarks-remover / sanitize: unicode_verified",
    "count": 0,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "watermarks-remover / sanitize: unicode_verified",
+   "label": "dewatermark / sanitize: unicode_verified",
    "count": 0,
    "severity": "info",
    "action": "none"
@@ -33,14 +33,14 @@
   },
   {
    "category": "pipeline",
-   "label": "dewatermark / statistical: unsupported",
+   "label": "reverse-synthid / statistical: unsupported",
    "count": 0,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "reverse-synthid / statistical: unsupported",
+   "label": "dewatermark / statistical: unsupported",
    "count": 0,
    "severity": "info",
    "action": "none"
@@ -67,62 +67,10 @@
   "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
  ],
  "language": "cs",
- "elapsed_ms": 158.89,
- "created_at": "2026-10-08T09:48:07.525Z",
+ "elapsed_ms": 157.61,
+ "created_at": "2026-10-08T09:53:46.984Z",
  "options": {},
  "pipelines": [
-  {
-   "schema_version": "1.0",
-   "tool": "dewatermark",
-   "tool_version": "0.8.0",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "input_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
-   "output_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
-   "changes_count": 0,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "findings": [],
-   "diff": [
-    {
-     "op": "equal",
-     "text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n"
-    }
-   ],
-   "verification_status": "unicode_verified",
-   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
-   "limitations": [
-    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
-    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
-   ],
-   "language": "cs",
-   "elapsed_ms": 1.18,
-   "created_at": "2026-10-08T09:48:07.367Z",
-   "options": {
-    "profile": "safe",
-    "czech_nbsp": true
-   },
-   "raw": {
-    "before": {
-     "char_count": 241,
-     "grapheme_count": 241,
-     "utf8_byte_count": 292,
-     "invisible_char_count": 0,
-     "invisible_observation_count": 0,
-     "exotic_space_count": 0,
-     "homoglyph_count": 0
-    },
-    "after": {
-     "char_count": 241,
-     "grapheme_count": 241,
-     "utf8_byte_count": 292,
-     "invisible_char_count": 0,
-     "invisible_observation_count": 0,
-     "exotic_space_count": 0,
-     "homoglyph_count": 0
-    }
-   }
-  },
   {
    "schema_version": "1.0",
    "tool": "watermarks-remover",
@@ -148,8 +96,8 @@
     "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
    ],
    "language": "cs",
-   "elapsed_ms": 61.5,
-   "created_at": "2026-10-08T09:48:07.468Z",
+   "elapsed_ms": 58.49,
+   "created_at": "2026-10-08T09:53:46.925Z",
    "options": {
     "nfkc": false,
     "aggressive_homoglyphs": false,
@@ -164,6 +112,58 @@
      "removed_count": 0,
      "replaced_count": 0,
      "nfkc_changed": false
+    }
+   }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "dewatermark",
+   "tool_version": "0.8.0",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "input_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
+   "output_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
+   "changes_count": 0,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "findings": [],
+   "diff": [
+    {
+     "op": "equal",
+     "text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n"
+    }
+   ],
+   "verification_status": "unicode_verified",
+   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
+   "limitations": [
+    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
+    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0.47,
+   "created_at": "2026-10-08T09:53:46.926Z",
+   "options": {
+    "profile": "safe",
+    "czech_nbsp": true
+   },
+   "raw": {
+    "before": {
+     "char_count": 241,
+     "grapheme_count": 241,
+     "utf8_byte_count": 292,
+     "invisible_char_count": 0,
+     "invisible_observation_count": 0,
+     "exotic_space_count": 0,
+     "homoglyph_count": 0
+    },
+    "after": {
+     "char_count": 241,
+     "grapheme_count": 241,
+     "utf8_byte_count": 292,
+     "invisible_char_count": 0,
+     "invisible_observation_count": 0,
+     "exotic_space_count": 0,
+     "homoglyph_count": 0
     }
    }
   },
@@ -204,8 +204,8 @@
     "Bez nakonfigurovaného backendu (ollama / openai-compatible) je tento režim jen generátor promptu."
    ],
    "language": "cs",
-   "elapsed_ms": 42.89,
-   "created_at": "2026-10-08T09:48:07.521Z",
+   "elapsed_ms": 43.51,
+   "created_at": "2026-10-08T09:53:46.980Z",
    "options": {
     "backend": "print-prompt",
     "tactic": "paraphrase"
@@ -230,6 +230,38 @@
     },
     "prompt": "Rewrite the following text so that it uses substantially different wording at the token level. Change clause order, connectors, and transition words; vary sentence boundaries and length; and replace both content words and function words where meaning allows. Preserve all facts, numbers, names, and technical identifiers. Do not add or remove claims. Output only the rewritten text.\n\n---\nPříliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n"
    }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "reverse-synthid",
+   "tool_version": "",
+   "mode": "statistical",
+   "kind": "statistical",
+   "input_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
+   "output_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
+   "changes_count": 0,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "findings": [],
+   "diff": [
+    {
+     "op": "equal",
+     "text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n"
+    }
+   ],
+   "verification_status": "unsupported",
+   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
+   "limitations": [
+    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
+    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
+    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
+    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
+    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0,
+   "created_at": "2026-10-08T09:53:46.980Z",
+   "options": {}
   },
   {
    "schema_version": "1.0",
@@ -293,8 +325,8 @@
     "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
    ],
    "language": "cs",
-   "elapsed_ms": 2.07,
-   "created_at": "2026-10-08T09:48:07.525Z",
+   "elapsed_ms": 2.41,
+   "created_at": "2026-10-08T09:53:46.984Z",
    "options": {
     "stat_mode": "auto"
    },
@@ -312,7 +344,7 @@
      "warnings": [],
      "metadata": {
       "paraphrase_passes": 0,
-      "latency_ms": 1.463,
+      "latency_ms": 1.664,
       "auto_selected": "sanitize_only",
       "surrogate_before": {
        "available": false,
@@ -488,7 +520,7 @@
         "model_accesses": [],
         "cancelled": false,
         "deadline_exceeded": false,
-        "latency_ms": 1.463
+        "latency_ms": 1.664
        },
        "provenance": {
         "package_version": "0.8.0",
@@ -660,53 +692,10 @@
      }
     ]
    }
-  },
-  {
-   "schema_version": "1.0",
-   "tool": "reverse-synthid",
-   "tool_version": "",
-   "mode": "statistical",
-   "kind": "statistical",
-   "input_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
-   "output_text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n",
-   "changes_count": 0,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "findings": [],
-   "diff": [
-    {
-     "op": "equal",
-     "text": "Příliš žluťoučký kůň úpěl ďábelské ódy. Toto je běžný český odstavec s diakritikou: čeština má háčky a čárky, kroužek nad ů a písmena ď, ť, ň. Správný text by měl po očištění zůstat beze změny, včetně uvozovek „takto“ a pomlčky – jako tady.\n"
-    }
-   ],
-   "verification_status": "unsupported",
-   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
-   "limitations": [
-    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
-    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
-    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
-    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
-    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
-   ],
-   "language": "cs",
-   "elapsed_ms": 0,
-   "created_at": "2026-10-08T09:48:07.525Z",
-   "options": {}
   }
  ],
  "summary": [
   {
-   "tool": "dewatermark",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "changes_count": 0,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "verification_status": "unicode_verified",
-   "output_sha_prefix": "1af0476a50ed",
-   "elapsed_ms": 1.18
-  },
-  {
    "tool": "watermarks-remover",
    "mode": "sanitize",
    "kind": "deterministic",
@@ -715,7 +704,18 @@
    "rewritten_segments_count": 0,
    "verification_status": "unicode_verified",
    "output_sha_prefix": "1af0476a50ed",
-   "elapsed_ms": 61.5
+   "elapsed_ms": 58.49
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "changes_count": 0,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "verification_status": "unicode_verified",
+   "output_sha_prefix": "1af0476a50ed",
+   "elapsed_ms": 0.47
   },
   {
    "tool": "watermarks-remover",
@@ -726,18 +726,7 @@
    "rewritten_segments_count": 0,
    "verification_status": "unsupported",
    "output_sha_prefix": "1af0476a50ed",
-   "elapsed_ms": 42.89
-  },
-  {
-   "tool": "dewatermark",
-   "mode": "statistical",
-   "kind": "statistical",
-   "changes_count": 0,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "verification_status": "unsupported",
-   "output_sha_prefix": "1af0476a50ed",
-   "elapsed_ms": 2.07
+   "elapsed_ms": 43.51
   },
   {
    "tool": "reverse-synthid",
@@ -749,6 +738,17 @@
    "verification_status": "unsupported",
    "output_sha_prefix": "1af0476a50ed",
    "elapsed_ms": 0
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "statistical",
+   "kind": "statistical",
+   "changes_count": 0,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "verification_status": "unsupported",
+   "output_sha_prefix": "1af0476a50ed",
+   "elapsed_ms": 2.41
   }
  ],
  "capabilities": {
@@ -756,6 +756,7 @@
    "available": true,
    "version": "0.8.0",
    "license": "MIT",
+   "trust": "low: 7★, 0 forků, jediný autor (říjen 2026); používej jako křížovou kontrolu, ne jako primární nástroj",
    "modes": {
     "analyze": "deterministic",
     "sanitize": "deterministic",

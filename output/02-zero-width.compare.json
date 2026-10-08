@@ -5,22 +5,22 @@
  "mode": "compare",
  "kind": "deterministic",
  "input_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
- "output_text": "Tento text obsahuje neviditelné znaky.⁠ Zero-width space se často používá jako skrytý vodoznak. Kůň úpěl ódy⁠ a nikdo to neviděl. Na konci jsou tag znaky pro „cz“.\n",
+ "output_text": "Tento text obsahuje neviditelné znaky. Zero-width space se často používá jako skrytý vodoznak. Kůň úpěl ódy a nikdo to neviděl. Na konci jsou tag znaky pro „cz“.\n",
  "changes_count": 0,
  "removed_unicode_count": 0,
  "rewritten_segments_count": 0,
  "findings": [
   {
    "category": "pipeline",
-   "label": "dewatermark / sanitize: unicode_verified",
-   "count": 13,
+   "label": "watermarks-remover / sanitize: unicode_verified",
+   "count": 15,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "watermarks-remover / sanitize: unicode_verified",
-   "count": 15,
+   "label": "dewatermark / sanitize: unicode_verified",
+   "count": 13,
    "severity": "info",
    "action": "none"
   },
@@ -33,15 +33,15 @@
   },
   {
    "category": "pipeline",
-   "label": "dewatermark / statistical: unsupported",
-   "count": 13,
+   "label": "reverse-synthid / statistical: unsupported",
+   "count": 0,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "reverse-synthid / statistical: unsupported",
-   "count": 0,
+   "label": "dewatermark / statistical: unsupported",
+   "count": 13,
    "severity": "info",
    "action": "none"
   }
@@ -81,7 +81,19 @@
   },
   {
    "op": "equal",
-   "text": " znaky.⁠ "
+   "text": " "
+  },
+  {
+   "op": "delete",
+   "text": "znaky.⁠"
+  },
+  {
+   "op": "insert",
+   "text": "znaky."
+  },
+  {
+   "op": "equal",
+   "text": " "
   },
   {
    "op": "delete",
@@ -153,7 +165,19 @@
   },
   {
    "op": "equal",
-   "text": " ódy⁠ a "
+   "text": " "
+  },
+  {
+   "op": "delete",
+   "text": "ódy⁠"
+  },
+  {
+   "op": "insert",
+   "text": "ódy"
+  },
+  {
+   "op": "equal",
+   "text": " a "
   },
   {
    "op": "delete",
@@ -195,283 +219,10 @@
   "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
  ],
  "language": "cs",
- "elapsed_ms": 152.77,
- "created_at": "2026-10-08T09:48:07.690Z",
+ "elapsed_ms": 148.59,
+ "created_at": "2026-10-08T09:53:47.146Z",
  "options": {},
  "pipelines": [
-  {
-   "schema_version": "1.0",
-   "tool": "dewatermark",
-   "tool_version": "0.8.0",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "input_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
-   "output_text": "Tento text obsahuje neviditelné znaky.⁠ Zero-width space se často používá jako skrytý vodoznak. Kůň úpěl ódy⁠ a nikdo to neviděl. Na konci jsou tag znaky pro „cz“.\n",
-   "changes_count": 13,
-   "removed_unicode_count": 13,
-   "rewritten_segments_count": 0,
-   "findings": [
-    {
-     "category": "zero_width",
-     "label": "U+200B ZERO WIDTH SPACE",
-     "codepoint": "U+200B",
-     "count": 6,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      5,
-      47,
-      54,
-      70,
-      102,
-      127
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+200C ZERO WIDTH NON-JOINER",
-     "codepoint": "U+200C",
-     "count": 2,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      20,
-      107
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+200D ZERO WIDTH JOINER",
-     "codepoint": "U+200D",
-     "count": 2,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      33,
-      113
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+2060 WORD JOINER",
-     "codepoint": "U+2060",
-     "count": 2,
-     "severity": "medium",
-     "action": "preserve",
-     "positions": [
-      41,
-      118
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+FEFF ZERO WIDTH NO-BREAK SPACE",
-     "codepoint": "U+FEFF",
-     "count": 1,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      84
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "tags_block",
-     "label": "U+E0063 TAG LATIN SMALL LETTER C",
-     "codepoint": "U+E0063",
-     "count": 1,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      164
-     ],
-     "note": "Tags-block codepoint used by valid subdivision flags and by covert payloads."
-    },
-    {
-     "category": "tags_block",
-     "label": "U+E007A TAG LATIN SMALL LETTER Z",
-     "codepoint": "U+E007A",
-     "count": 1,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      165
-     ],
-     "note": "Tags-block codepoint used by valid subdivision flags and by covert payloads."
-    }
-   ],
-   "diff": [
-    {
-     "op": "delete",
-     "text": "Tento​"
-    },
-    {
-     "op": "insert",
-     "text": "Tento"
-    },
-    {
-     "op": "equal",
-     "text": " text "
-    },
-    {
-     "op": "delete",
-     "text": "obsahuje‌"
-    },
-    {
-     "op": "insert",
-     "text": "obsahuje"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "neviditelné‍"
-    },
-    {
-     "op": "insert",
-     "text": "neviditelné"
-    },
-    {
-     "op": "equal",
-     "text": " znaky.⁠ "
-    },
-    {
-     "op": "delete",
-     "text": "Zero​-width​"
-    },
-    {
-     "op": "insert",
-     "text": "Zero-width"
-    },
-    {
-     "op": "equal",
-     "text": " space se "
-    },
-    {
-     "op": "delete",
-     "text": "často​"
-    },
-    {
-     "op": "insert",
-     "text": "často"
-    },
-    {
-     "op": "equal",
-     "text": " používá "
-    },
-    {
-     "op": "delete",
-     "text": "jako﻿"
-    },
-    {
-     "op": "insert",
-     "text": "jako"
-    },
-    {
-     "op": "equal",
-     "text": " skrytý "
-    },
-    {
-     "op": "delete",
-     "text": "vodoznak.​"
-    },
-    {
-     "op": "insert",
-     "text": "vodoznak."
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "Kůň‌"
-    },
-    {
-     "op": "insert",
-     "text": "Kůň"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "úpěl‍"
-    },
-    {
-     "op": "insert",
-     "text": "úpěl"
-    },
-    {
-     "op": "equal",
-     "text": " ódy⁠ a "
-    },
-    {
-     "op": "delete",
-     "text": "nikdo​"
-    },
-    {
-     "op": "insert",
-     "text": "nikdo"
-    },
-    {
-     "op": "equal",
-     "text": " to neviděl. Na konci jsou tag "
-    },
-    {
-     "op": "delete",
-     "text": "znaky󠁣󠁺"
-    },
-    {
-     "op": "insert",
-     "text": "znaky"
-    },
-    {
-     "op": "equal",
-     "text": " pro „cz“.\n"
-    }
-   ],
-   "verification_status": "unicode_verified",
-   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
-   "limitations": [
-    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
-    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
-   ],
-   "language": "cs",
-   "elapsed_ms": 0.43,
-   "created_at": "2026-10-08T09:48:07.538Z",
-   "options": {
-    "profile": "safe",
-    "czech_nbsp": true
-   },
-   "raw": {
-    "before": {
-     "char_count": 177,
-     "grapheme_count": 169,
-     "utf8_byte_count": 225,
-     "invisible_char_count": 15,
-     "invisible_observation_count": 15,
-     "exotic_space_count": 0,
-     "homoglyph_count": 0
-    },
-    "after": {
-     "char_count": 164,
-     "grapheme_count": 164,
-     "utf8_byte_count": 184,
-     "invisible_char_count": 2,
-     "invisible_observation_count": 2,
-     "exotic_space_count": 0,
-     "homoglyph_count": 0
-    }
-   }
-  },
   {
    "schema_version": "1.0",
    "tool": "watermarks-remover",
@@ -742,8 +493,8 @@
     "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
    ],
    "language": "cs",
-   "elapsed_ms": 58.61,
-   "created_at": "2026-10-08T09:48:07.634Z",
+   "elapsed_ms": 56.1,
+   "created_at": "2026-10-08T09:53:47.093Z",
    "options": {
     "nfkc": false,
     "aggressive_homoglyphs": false,
@@ -766,6 +517,279 @@
      "removed_count": 15,
      "replaced_count": 0,
      "nfkc_changed": false
+    }
+   }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "dewatermark",
+   "tool_version": "0.8.0",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "input_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
+   "output_text": "Tento text obsahuje neviditelné znaky.⁠ Zero-width space se často používá jako skrytý vodoznak. Kůň úpěl ódy⁠ a nikdo to neviděl. Na konci jsou tag znaky pro „cz“.\n",
+   "changes_count": 13,
+   "removed_unicode_count": 13,
+   "rewritten_segments_count": 0,
+   "findings": [
+    {
+     "category": "zero_width",
+     "label": "U+200B ZERO WIDTH SPACE",
+     "codepoint": "U+200B",
+     "count": 6,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      5,
+      47,
+      54,
+      70,
+      102,
+      127
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+200C ZERO WIDTH NON-JOINER",
+     "codepoint": "U+200C",
+     "count": 2,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      20,
+      107
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+200D ZERO WIDTH JOINER",
+     "codepoint": "U+200D",
+     "count": 2,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      33,
+      113
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+2060 WORD JOINER",
+     "codepoint": "U+2060",
+     "count": 2,
+     "severity": "medium",
+     "action": "preserve",
+     "positions": [
+      41,
+      118
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+FEFF ZERO WIDTH NO-BREAK SPACE",
+     "codepoint": "U+FEFF",
+     "count": 1,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      84
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "tags_block",
+     "label": "U+E0063 TAG LATIN SMALL LETTER C",
+     "codepoint": "U+E0063",
+     "count": 1,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      164
+     ],
+     "note": "Tags-block codepoint used by valid subdivision flags and by covert payloads."
+    },
+    {
+     "category": "tags_block",
+     "label": "U+E007A TAG LATIN SMALL LETTER Z",
+     "codepoint": "U+E007A",
+     "count": 1,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      165
+     ],
+     "note": "Tags-block codepoint used by valid subdivision flags and by covert payloads."
+    }
+   ],
+   "diff": [
+    {
+     "op": "delete",
+     "text": "Tento​"
+    },
+    {
+     "op": "insert",
+     "text": "Tento"
+    },
+    {
+     "op": "equal",
+     "text": " text "
+    },
+    {
+     "op": "delete",
+     "text": "obsahuje‌"
+    },
+    {
+     "op": "insert",
+     "text": "obsahuje"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "neviditelné‍"
+    },
+    {
+     "op": "insert",
+     "text": "neviditelné"
+    },
+    {
+     "op": "equal",
+     "text": " znaky.⁠ "
+    },
+    {
+     "op": "delete",
+     "text": "Zero​-width​"
+    },
+    {
+     "op": "insert",
+     "text": "Zero-width"
+    },
+    {
+     "op": "equal",
+     "text": " space se "
+    },
+    {
+     "op": "delete",
+     "text": "často​"
+    },
+    {
+     "op": "insert",
+     "text": "často"
+    },
+    {
+     "op": "equal",
+     "text": " používá "
+    },
+    {
+     "op": "delete",
+     "text": "jako﻿"
+    },
+    {
+     "op": "insert",
+     "text": "jako"
+    },
+    {
+     "op": "equal",
+     "text": " skrytý "
+    },
+    {
+     "op": "delete",
+     "text": "vodoznak.​"
+    },
+    {
+     "op": "insert",
+     "text": "vodoznak."
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "Kůň‌"
+    },
+    {
+     "op": "insert",
+     "text": "Kůň"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "úpěl‍"
+    },
+    {
+     "op": "insert",
+     "text": "úpěl"
+    },
+    {
+     "op": "equal",
+     "text": " ódy⁠ a "
+    },
+    {
+     "op": "delete",
+     "text": "nikdo​"
+    },
+    {
+     "op": "insert",
+     "text": "nikdo"
+    },
+    {
+     "op": "equal",
+     "text": " to neviděl. Na konci jsou tag "
+    },
+    {
+     "op": "delete",
+     "text": "znaky󠁣󠁺"
+    },
+    {
+     "op": "insert",
+     "text": "znaky"
+    },
+    {
+     "op": "equal",
+     "text": " pro „cz“.\n"
+    }
+   ],
+   "verification_status": "unicode_verified",
+   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
+   "limitations": [
+    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
+    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0.44,
+   "created_at": "2026-10-08T09:53:47.094Z",
+   "options": {
+    "profile": "safe",
+    "czech_nbsp": true
+   },
+   "raw": {
+    "before": {
+     "char_count": 177,
+     "grapheme_count": 169,
+     "utf8_byte_count": 225,
+     "invisible_char_count": 15,
+     "invisible_observation_count": 15,
+     "exotic_space_count": 0,
+     "homoglyph_count": 0
+    },
+    "after": {
+     "char_count": 164,
+     "grapheme_count": 164,
+     "utf8_byte_count": 184,
+     "invisible_char_count": 2,
+     "invisible_observation_count": 2,
+     "exotic_space_count": 0,
+     "homoglyph_count": 0
     }
    }
   },
@@ -806,8 +830,8 @@
     "Bez nakonfigurovaného backendu (ollama / openai-compatible) je tento režim jen generátor promptu."
    ],
    "language": "cs",
-   "elapsed_ms": 43.21,
-   "created_at": "2026-10-08T09:48:07.687Z",
+   "elapsed_ms": 39.12,
+   "created_at": "2026-10-08T09:53:47.143Z",
    "options": {
     "backend": "print-prompt",
     "tactic": "paraphrase"
@@ -832,6 +856,38 @@
     },
     "prompt": "Rewrite the following text so that it uses substantially different wording at the token level. Change clause order, connectors, and transition words; vary sentence boundaries and length; and replace both content words and function words where meaning allows. Preserve all facts, numbers, names, and technical identifiers. Do not add or remove claims. Output only the rewritten text.\n\n---\nTento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n"
    }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "reverse-synthid",
+   "tool_version": "",
+   "mode": "statistical",
+   "kind": "statistical",
+   "input_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
+   "output_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
+   "changes_count": 0,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "findings": [],
+   "diff": [
+    {
+     "op": "equal",
+     "text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n"
+    }
+   ],
+   "verification_status": "unsupported",
+   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
+   "limitations": [
+    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
+    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
+    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
+    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
+    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0,
+   "created_at": "2026-10-08T09:53:47.143Z",
+   "options": {}
   },
   {
    "schema_version": "1.0",
@@ -1023,8 +1079,8 @@
     "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
    ],
    "language": "cs",
-   "elapsed_ms": 2.05,
-   "created_at": "2026-10-08T09:48:07.690Z",
+   "elapsed_ms": 1.7,
+   "created_at": "2026-10-08T09:53:47.146Z",
    "options": {
     "stat_mode": "auto"
    },
@@ -1042,7 +1098,7 @@
      "warnings": [],
      "metadata": {
       "paraphrase_passes": 0,
-      "latency_ms": 1.364,
+      "latency_ms": 1.098,
       "auto_selected": "sanitize_only",
       "surrogate_before": {
        "available": false,
@@ -1218,7 +1274,7 @@
         "model_accesses": [],
         "cancelled": false,
         "deadline_exceeded": false,
-        "latency_ms": 1.364
+        "latency_ms": 1.098
        },
        "provenance": {
         "package_version": "0.8.0",
@@ -1393,52 +1449,9 @@
      }
     ]
    }
-  },
-  {
-   "schema_version": "1.0",
-   "tool": "reverse-synthid",
-   "tool_version": "",
-   "mode": "statistical",
-   "kind": "statistical",
-   "input_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
-   "output_text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n",
-   "changes_count": 0,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "findings": [],
-   "diff": [
-    {
-     "op": "equal",
-     "text": "Tento​ text obsahuje‌ neviditelné‍ znaky.⁠ Zero​-width​ space se často​ používá jako﻿ skrytý vodoznak.​ Kůň‌ úpěl‍ ódy⁠ a nikdo​ to neviděl. Na konci jsou tag znaky󠁣󠁺 pro „cz“.\n"
-    }
-   ],
-   "verification_status": "unsupported",
-   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
-   "limitations": [
-    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
-    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
-    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
-    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
-    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
-   ],
-   "language": "cs",
-   "elapsed_ms": 0,
-   "created_at": "2026-10-08T09:48:07.690Z",
-   "options": {}
   }
  ],
  "summary": [
-  {
-   "tool": "dewatermark",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "changes_count": 13,
-   "removed_unicode_count": 13,
-   "rewritten_segments_count": 0,
-   "verification_status": "unicode_verified",
-   "output_sha_prefix": "fe03a22a44e8",
-   "elapsed_ms": 0.43
-  },
   {
    "tool": "watermarks-remover",
    "mode": "sanitize",
@@ -1448,7 +1461,18 @@
    "rewritten_segments_count": 0,
    "verification_status": "unicode_verified",
    "output_sha_prefix": "d1664ab7acac",
-   "elapsed_ms": 58.61
+   "elapsed_ms": 56.1
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "changes_count": 13,
+   "removed_unicode_count": 13,
+   "rewritten_segments_count": 0,
+   "verification_status": "unicode_verified",
+   "output_sha_prefix": "fe03a22a44e8",
+   "elapsed_ms": 0.44
   },
   {
    "tool": "watermarks-remover",
@@ -1459,18 +1483,7 @@
    "rewritten_segments_count": 0,
    "verification_status": "unsupported",
    "output_sha_prefix": "b262ad3b2f57",
-   "elapsed_ms": 43.21
-  },
-  {
-   "tool": "dewatermark",
-   "mode": "statistical",
-   "kind": "statistical",
-   "changes_count": 13,
-   "removed_unicode_count": 13,
-   "rewritten_segments_count": 0,
-   "verification_status": "unsupported",
-   "output_sha_prefix": "fe03a22a44e8",
-   "elapsed_ms": 2.05
+   "elapsed_ms": 39.12
   },
   {
    "tool": "reverse-synthid",
@@ -1482,6 +1495,17 @@
    "verification_status": "unsupported",
    "output_sha_prefix": "b262ad3b2f57",
    "elapsed_ms": 0
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "statistical",
+   "kind": "statistical",
+   "changes_count": 13,
+   "removed_unicode_count": 13,
+   "rewritten_segments_count": 0,
+   "verification_status": "unsupported",
+   "output_sha_prefix": "fe03a22a44e8",
+   "elapsed_ms": 1.7
   }
  ],
  "capabilities": {
@@ -1489,6 +1513,7 @@
    "available": true,
    "version": "0.8.0",
    "license": "MIT",
+   "trust": "low: 7★, 0 forků, jediný autor (říjen 2026); používej jako křížovou kontrolu, ne jako primární nástroj",
    "modes": {
     "analyze": "deterministic",
     "sanitize": "deterministic",

@@ -6,7 +6,7 @@ from typing import Any
 from . import core
 from .adapters import ADAPTERS, capabilities
 
-DEFAULT_TOOL = {"analyze": "dewatermark", "sanitize": "dewatermark", "statistical": "watermarks-remover"}
+DEFAULT_TOOL = {"analyze": "watermarks-remover", "sanitize": "watermarks-remover", "statistical": "watermarks-remover"}
 
 
 def preprocess(text: str, options: dict[str, Any] | None) -> tuple[str, list[dict[str, Any]]]:
@@ -46,11 +46,11 @@ def compare(text: str, options: dict[str, Any] | None = None, include_statistica
     caps = capabilities()
     pipelines: list[dict[str, Any]] = []
     with core.Timer() as t:
-        for tool in ("dewatermark", "watermarks-remover"):
+        for tool in ("watermarks-remover", "dewatermark"):
             if caps[tool].get("available"):
                 pipelines.append(run_one(text, "sanitize", tool, options))
         if include_statistical:
-            for tool in ("watermarks-remover", "dewatermark", "reverse-synthid"):
+            for tool in ("watermarks-remover", "reverse-synthid", "dewatermark"):
                 pipelines.append(run_one(text, "statistical", tool, options))
     summary = [{
         "tool": p["tool"], "mode": p["mode"], "kind": p["kind"], "changes_count": p["changes_count"],

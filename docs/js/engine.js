@@ -15,7 +15,7 @@ export const LIMITS = {
   vendor_unverifiable: "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
   czech_rewrite_risk: "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
   experimental: "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
-  browser_only: "Tento výsledek vznikl v prohlížeči z Unicode politiky dewatermark " + POLICY_VERSION + "; Python nástroje nebyly spuštěny.",
+  browser_only: "Tento výsledek vznikl v prohlížeči; Python nástroje nebyly spuštěny. Tabulka Unicode rozsahů pochází z projektu dewatermark (" + POLICY_VERSION + "), který je málo ověřený (7★), proto je výchozí přísný profil odpovídající watermarks-remover.",
 };
 
 // ---------------------------------------------------------------- HTML entity / tagy
@@ -147,7 +147,7 @@ export function analyze(input, opts = {}) {
   const cz = czechNbspPairs(pre.text).size;
   if (cz) findings.push({ category: "czech_typography", label: "Pevná mezera v českém kontextu (předložka, číslo)", count: cz, severity: "info", action: "preserve", note: "Správná česká typografie, nejde o vodoznak." });
   return makeReport({
-    tool: "dewatermark-js", tool_version: POLICY_VERSION, mode: "analyze", kind: "deterministic",
+    tool: "browser (dewatermark-js tabulka)", tool_version: POLICY_VERSION, mode: "analyze", kind: "deterministic",
     input_text: input, output_text: input, findings, removed_unicode_count: 0, changes_count: 0,
     verification_status: "not_applicable", limitations: [LIMITS.unicode_not_statistical, LIMITS.detector_scoped, LIMITS.browser_only],
     elapsed_ms: +(performance.now() - t0).toFixed(2), options: opts,
@@ -175,7 +175,7 @@ export function sanitize(input, opts = {}) {
   const status = after.length === 0 ? "unicode_verified" : "failed";
   const lim = [LIMITS.unicode_not_statistical, LIMITS.detector_scoped, LIMITS.browser_only];
   return makeReport({
-    tool: opts.profile === "strict" ? "dewatermark-js+strict" : "dewatermark-js", tool_version: POLICY_VERSION, mode: "sanitize", kind: "deterministic",
+    tool: opts.profile === "strict" ? "browser-strict" : "browser-safe (dewatermark-js)", tool_version: POLICY_VERSION, mode: "sanitize", kind: "deterministic",
     input_text: input, output_text: out, findings,
     removed_unicode_count: rep.edits.length + strictRemoved + pre.findings.reduce((a, f) => a + f.count, 0),
     verification_status: status,
@@ -188,8 +188,8 @@ export function sanitize(input, opts = {}) {
 export function compareLocal(input, opts = {}) {
   const t0 = performance.now();
   const pipelines = [
-    sanitize(input, { ...opts, profile: "safe" }),
     sanitize(input, { ...opts, profile: "strict" }),
+    sanitize(input, { ...opts, profile: "safe" }),
   ];
   const best = pipelines.find((p) => p.verification_status === "unicode_verified") || pipelines[0];
   const rep = makeReport({

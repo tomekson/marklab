@@ -3,6 +3,7 @@
   "available": true,
   "version": "0.8.0",
   "license": "MIT",
+  "trust": "low: 7★, 0 forků, jediný autor (říjen 2026); používej jako křížovou kontrolu, ne jako primární nástroj",
   "modes": {
    "analyze": "deterministic",
    "sanitize": "deterministic",

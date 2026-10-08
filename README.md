@@ -16,7 +16,7 @@ Online (po publikaci): https://tomekson.github.io/text-watermark-lab/
 | Funkce | Kde běží | Stav |
 | --- | --- | --- |
 | Analyze (inspekce Unicode, HTML entity, české NBSP) | prohlížeč | funguje |
-| Sanitize Unicode (safe / přísný profil, obnova českých pevných mezer) | prohlížeč | funguje |
+| Sanitize Unicode (výchozí přísný profil = watermarks-remover Layer A, volitelný safe, obnova českých pevných mezer) | prohlížeč | funguje |
 | Upload .txt / .md / .html / .docx, drag & drop | prohlížeč | funguje (.docx bez knihoven přes DecompressionStream) |
 | Diff před/po, zviditelnění skrytých znaků, export .txt / .json | prohlížeč | funguje |
 | Compare pipelines (safe vs strict) | prohlížeč | funguje |
@@ -77,6 +77,8 @@ Detail: [notes/ARCHITECTURE.md](notes/ARCHITECTURE.md).
 
 ## Použité nástroje
 
+**Primární nástroj je watermarks-remover** (23 570★, 2 702 forků). **dewatermark má jen 7★, 0 forků a jediného autora** (repo z 17. 8. 2026); používá se jen jako křížová kontrola a jako zdroj tabulky Unicode rozsahů pro prohlížeč, kterou jsem porovnal s watermarks-remover (rozdíl: Word Joiner U+2060). Výchozí přísný profil v prohlížeči se chová jako watermarks-remover Layer A.
+
 | Nástroj | Licence | Role | Jak je zapojený |
 | --- | --- | --- | --- |
 | [dewatermark](https://github.com/cyzanfar/text-watermark-remover) 0.8.0 | MIT | Unicode politika, Python API, JS port | JS port v prohlížeči; Python API v bridge (`analyze`, `sanitize`, `remove`) |
@@ -96,7 +98,7 @@ Detail: [notes/ARCHITECTURE.md](notes/ARCHITECTURE.md).
 - **Pevná mezera** za jednopísmennými předložkami (k, s, v, z, o, u, a, i) a v číslech (1 000 Kč) je správná typografie. Oba nástroje ji převádí na obyčejnou mezeru; dashboard ji po očištění vrací (volba „Zachovat pevné mezery“, zapnutá).
 - **Diakritika** zůstává nedotčená v safe profilech obou nástrojů (jen NFC). Profil `aggressive` (dewatermark) a `--nfkc` (watermarks-remover) jsou ztrátové a dashboard je nepoužívá.
 - **České uvozovky „“ ‚‘ a pomlčky –** nejsou v žádné politice, zůstávají.
-- **Word Joiner (U+2060)** dewatermark safe zachovává, watermarks-remover maže. Přísný profil v prohlížeči se chová jako watermarks-remover.
+- **Word Joiner (U+2060)** dewatermark safe zachovává, watermarks-remover maže. Výchozí přísný profil v prohlížeči se chová jako watermarks-remover.
 
 ## Publikace na GitHub Pages
 

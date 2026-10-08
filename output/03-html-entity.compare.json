@@ -12,14 +12,14 @@
  "findings": [
   {
    "category": "pipeline",
-   "label": "dewatermark / sanitize: unicode_verified",
+   "label": "watermarks-remover / sanitize: unicode_verified",
    "count": 26,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "watermarks-remover / sanitize: unicode_verified",
+   "label": "dewatermark / sanitize: unicode_verified",
    "count": 26,
    "severity": "info",
    "action": "none"
@@ -33,15 +33,15 @@
   },
   {
    "category": "pipeline",
-   "label": "dewatermark / statistical: unsupported",
-   "count": 26,
+   "label": "reverse-synthid / statistical: unsupported",
+   "count": 20,
    "severity": "info",
    "action": "none"
   },
   {
    "category": "pipeline",
-   "label": "reverse-synthid / statistical: unsupported",
-   "count": 20,
+   "label": "dewatermark / statistical: unsupported",
+   "count": 26,
    "severity": "info",
    "action": "none"
   }
@@ -187,377 +187,10 @@
   "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
  ],
  "language": "cs",
- "elapsed_ms": 147.73,
- "created_at": "2026-10-08T09:48:07.850Z",
+ "elapsed_ms": 248.35,
+ "created_at": "2026-10-08T09:53:47.408Z",
  "options": {},
  "pipelines": [
-  {
-   "schema_version": "1.0",
-   "tool": "dewatermark",
-   "tool_version": "0.8.0",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "input_text": "Text s HTML entitami: Pr&iacute;li&scaron; &#382;lu&#357;ou&#269;k&yacute; k&uring;&#328;. Mezera&nbsp;pevn&aacute; a&nbsp;dal&scaron;&iacute; &zwj; zero&zwnj;width entity. Ampersand &amp; a uvozovky &bdquo;takto&ldquo;. Zero width space jako &#8203; a &#x200B;.\n",
-   "output_text": "Text s HTML entitami: Príliš žluťoučký kůň. Mezera pevná a další  zerowidth entity. Ampersand & a uvozovky „takto“. Zero width space jako  a .\n",
-   "changes_count": 26,
-   "removed_unicode_count": 6,
-   "rewritten_segments_count": 0,
-   "findings": [
-    {
-     "category": "html_entity",
-     "label": "HTML entita &iacute;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &scaron;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#382;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#357;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#269;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &yacute;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &uring;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#328;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &nbsp;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &aacute;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &zwj;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &zwnj;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &amp;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &bdquo;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &ldquo;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#8203;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#x200B;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "exotic_space",
-     "label": "U+00A0 NO-BREAK SPACE",
-     "codepoint": "U+00A0",
-     "count": 2,
-     "severity": "medium",
-     "action": "space",
-     "positions": [
-      50,
-      58
-     ],
-     "note": "Non-standard whitespace that the conservative sanitizer normalizes when safe."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+200B ZERO WIDTH SPACE",
-     "codepoint": "U+200B",
-     "count": 2,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      140,
-      144
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+200C ZERO WIDTH NON-JOINER",
-     "codepoint": "U+200C",
-     "count": 1,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      71
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "zero_width",
-     "label": "U+200D ZERO WIDTH JOINER",
-     "codepoint": "U+200D",
-     "count": 1,
-     "severity": "high",
-     "action": "delete",
-     "positions": [
-      65
-     ],
-     "note": "Invisible zero-width character that may encode data or affect shaping."
-    },
-    {
-     "category": "czech_typography",
-     "label": "Pevná mezera obnovena (česká typografie)",
-     "count": 1,
-     "severity": "info",
-     "action": "preserve",
-     "note": "NBSP za jednopísmennou předložkou nebo v čísle je správně; vrácena zpět."
-    }
-   ],
-   "diff": [
-    {
-     "op": "equal",
-     "text": "Text s HTML entitami: "
-    },
-    {
-     "op": "delete",
-     "text": "Pr&iacute;li&scaron;"
-    },
-    {
-     "op": "insert",
-     "text": "Príliš"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "&#382;lu&#357;ou&#269;k&yacute;"
-    },
-    {
-     "op": "insert",
-     "text": "žluťoučký"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "k&uring;&#328;."
-    },
-    {
-     "op": "insert",
-     "text": "kůň."
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "Mezera&nbsp;pevn&aacute;"
-    },
-    {
-     "op": "insert",
-     "text": "Mezera"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "a&nbsp;dal&scaron;&iacute;"
-    },
-    {
-     "op": "insert",
-     "text": "pevná"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "&zwj; zero&zwnj;width"
-    },
-    {
-     "op": "insert",
-     "text": "a další  zerowidth"
-    },
-    {
-     "op": "equal",
-     "text": " entity. Ampersand "
-    },
-    {
-     "op": "delete",
-     "text": "&amp;"
-    },
-    {
-     "op": "insert",
-     "text": "&"
-    },
-    {
-     "op": "equal",
-     "text": " a uvozovky "
-    },
-    {
-     "op": "delete",
-     "text": "&bdquo;takto&ldquo;."
-    },
-    {
-     "op": "insert",
-     "text": "„takto“."
-    },
-    {
-     "op": "equal",
-     "text": " Zero width space jako"
-    },
-    {
-     "op": "delete",
-     "text": " &#8203; "
-    },
-    {
-     "op": "insert",
-     "text": "  "
-    },
-    {
-     "op": "equal",
-     "text": "a "
-    },
-    {
-     "op": "delete",
-     "text": "&#x200B;."
-    },
-    {
-     "op": "insert",
-     "text": "."
-    },
-    {
-     "op": "equal",
-     "text": "\n"
-    }
-   ],
-   "verification_status": "unicode_verified",
-   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
-   "limitations": [
-    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
-    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
-   ],
-   "language": "cs",
-   "elapsed_ms": 0.56,
-   "created_at": "2026-10-08T09:48:07.703Z",
-   "options": {
-    "profile": "safe",
-    "czech_nbsp": true
-   },
-   "raw": {
-    "before": {
-     "char_count": 147,
-     "grapheme_count": 144,
-     "utf8_byte_count": 172,
-     "invisible_char_count": 4,
-     "invisible_observation_count": 4,
-     "exotic_space_count": 2,
-     "homoglyph_count": 0
-    },
-    "after": {
-     "char_count": 143,
-     "grapheme_count": 143,
-     "utf8_byte_count": 159,
-     "invisible_char_count": 0,
-     "invisible_observation_count": 0,
-     "exotic_space_count": 1,
-     "homoglyph_count": 0
-    }
-   }
-  },
   {
    "schema_version": "1.0",
    "tool": "watermarks-remover",
@@ -898,8 +531,8 @@
     "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
    ],
    "language": "cs",
-   "elapsed_ms": 56.96,
-   "created_at": "2026-10-08T09:48:07.797Z",
+   "elapsed_ms": 59.95,
+   "created_at": "2026-10-08T09:53:47.308Z",
    "options": {
     "nfkc": false,
     "aggressive_homoglyphs": false,
@@ -920,6 +553,373 @@
      "removed_count": 4,
      "replaced_count": 2,
      "nfkc_changed": false
+    }
+   }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "dewatermark",
+   "tool_version": "0.8.0",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "input_text": "Text s HTML entitami: Pr&iacute;li&scaron; &#382;lu&#357;ou&#269;k&yacute; k&uring;&#328;. Mezera&nbsp;pevn&aacute; a&nbsp;dal&scaron;&iacute; &zwj; zero&zwnj;width entity. Ampersand &amp; a uvozovky &bdquo;takto&ldquo;. Zero width space jako &#8203; a &#x200B;.\n",
+   "output_text": "Text s HTML entitami: Príliš žluťoučký kůň. Mezera pevná a další  zerowidth entity. Ampersand & a uvozovky „takto“. Zero width space jako  a .\n",
+   "changes_count": 26,
+   "removed_unicode_count": 6,
+   "rewritten_segments_count": 0,
+   "findings": [
+    {
+     "category": "html_entity",
+     "label": "HTML entita &iacute;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &scaron;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#382;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#357;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#269;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &yacute;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &uring;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#328;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &nbsp;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &aacute;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &zwj;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &zwnj;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &amp;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &bdquo;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &ldquo;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#8203;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#x200B;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "exotic_space",
+     "label": "U+00A0 NO-BREAK SPACE",
+     "codepoint": "U+00A0",
+     "count": 2,
+     "severity": "medium",
+     "action": "space",
+     "positions": [
+      50,
+      58
+     ],
+     "note": "Non-standard whitespace that the conservative sanitizer normalizes when safe."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+200B ZERO WIDTH SPACE",
+     "codepoint": "U+200B",
+     "count": 2,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      140,
+      144
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+200C ZERO WIDTH NON-JOINER",
+     "codepoint": "U+200C",
+     "count": 1,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      71
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "zero_width",
+     "label": "U+200D ZERO WIDTH JOINER",
+     "codepoint": "U+200D",
+     "count": 1,
+     "severity": "high",
+     "action": "delete",
+     "positions": [
+      65
+     ],
+     "note": "Invisible zero-width character that may encode data or affect shaping."
+    },
+    {
+     "category": "czech_typography",
+     "label": "Pevná mezera obnovena (česká typografie)",
+     "count": 1,
+     "severity": "info",
+     "action": "preserve",
+     "note": "NBSP za jednopísmennou předložkou nebo v čísle je správně; vrácena zpět."
+    }
+   ],
+   "diff": [
+    {
+     "op": "equal",
+     "text": "Text s HTML entitami: "
+    },
+    {
+     "op": "delete",
+     "text": "Pr&iacute;li&scaron;"
+    },
+    {
+     "op": "insert",
+     "text": "Príliš"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "&#382;lu&#357;ou&#269;k&yacute;"
+    },
+    {
+     "op": "insert",
+     "text": "žluťoučký"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "k&uring;&#328;."
+    },
+    {
+     "op": "insert",
+     "text": "kůň."
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "Mezera&nbsp;pevn&aacute;"
+    },
+    {
+     "op": "insert",
+     "text": "Mezera"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "a&nbsp;dal&scaron;&iacute;"
+    },
+    {
+     "op": "insert",
+     "text": "pevná"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "&zwj; zero&zwnj;width"
+    },
+    {
+     "op": "insert",
+     "text": "a další  zerowidth"
+    },
+    {
+     "op": "equal",
+     "text": " entity. Ampersand "
+    },
+    {
+     "op": "delete",
+     "text": "&amp;"
+    },
+    {
+     "op": "insert",
+     "text": "&"
+    },
+    {
+     "op": "equal",
+     "text": " a uvozovky "
+    },
+    {
+     "op": "delete",
+     "text": "&bdquo;takto&ldquo;."
+    },
+    {
+     "op": "insert",
+     "text": "„takto“."
+    },
+    {
+     "op": "equal",
+     "text": " Zero width space jako"
+    },
+    {
+     "op": "delete",
+     "text": " &#8203; "
+    },
+    {
+     "op": "insert",
+     "text": "  "
+    },
+    {
+     "op": "equal",
+     "text": "a "
+    },
+    {
+     "op": "delete",
+     "text": "&#x200B;."
+    },
+    {
+     "op": "insert",
+     "text": "."
+    },
+    {
+     "op": "equal",
+     "text": "\n"
+    }
+   ],
+   "verification_status": "unicode_verified",
+   "verification_note": "Po očištění detektor unicode-artifacts-v1 nehlásí žádný actionable nález.",
+   "limitations": [
+    "Unicode cleanup neodstraňuje statistický (token-sampling) vodoznak typu SynthID / KGW.",
+    "Úspěch je vždy vázaný na konkrétní detektor; neexistuje univerzální důkaz odstranění."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0.4,
+   "created_at": "2026-10-08T09:53:47.309Z",
+   "options": {
+    "profile": "safe",
+    "czech_nbsp": true
+   },
+   "raw": {
+    "before": {
+     "char_count": 147,
+     "grapheme_count": 144,
+     "utf8_byte_count": 172,
+     "invisible_char_count": 4,
+     "invisible_observation_count": 4,
+     "exotic_space_count": 2,
+     "homoglyph_count": 0
+    },
+    "after": {
+     "char_count": 143,
+     "grapheme_count": 143,
+     "utf8_byte_count": 159,
+     "invisible_char_count": 0,
+     "invisible_observation_count": 0,
+     "exotic_space_count": 1,
+     "homoglyph_count": 0
     }
    }
   },
@@ -1228,8 +1228,8 @@
     "Bez nakonfigurovaného backendu (ollama / openai-compatible) je tento režim jen generátor promptu."
    ],
    "language": "cs",
-   "elapsed_ms": 40.88,
-   "created_at": "2026-10-08T09:48:07.847Z",
+   "elapsed_ms": 78.44,
+   "created_at": "2026-10-08T09:53:47.402Z",
    "options": {
     "backend": "print-prompt",
     "tactic": "paraphrase"
@@ -1254,6 +1254,307 @@
     },
     "prompt": "Rewrite the following text so that it uses substantially different wording at the token level. Change clause order, connectors, and transition words; vary sentence boundaries and length; and replace both content words and function words where meaning allows. Preserve all facts, numbers, names, and technical identifiers. Do not add or remove claims. Output only the rewritten text.\n\n---\nText s HTML entitami: Príliš žluťoučký kůň. Mezera pevná a další ‍ zero‌width entity. Ampersand & a uvozovky „takto“. Zero width space jako ​ a ​.\n"
    }
+  },
+  {
+   "schema_version": "1.0",
+   "tool": "reverse-synthid",
+   "tool_version": "",
+   "mode": "statistical",
+   "kind": "statistical",
+   "input_text": "Text s HTML entitami: Pr&iacute;li&scaron; &#382;lu&#357;ou&#269;k&yacute; k&uring;&#328;. Mezera&nbsp;pevn&aacute; a&nbsp;dal&scaron;&iacute; &zwj; zero&zwnj;width entity. Ampersand &amp; a uvozovky &bdquo;takto&ldquo;. Zero width space jako &#8203; a &#x200B;.\n",
+   "output_text": "Text s HTML entitami: Príliš žluťoučký kůň. Mezera pevná a další ‍ zero‌width entity. Ampersand & a uvozovky „takto“. Zero width space jako ​ a ​.\n",
+   "changes_count": 20,
+   "removed_unicode_count": 0,
+   "rewritten_segments_count": 0,
+   "findings": [
+    {
+     "category": "html_entity",
+     "label": "HTML entita &iacute;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &scaron;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#382;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#357;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#269;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &yacute;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &uring;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#328;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &nbsp;",
+     "count": 2,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &aacute;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &zwj;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &zwnj;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &amp;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &bdquo;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &ldquo;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#8203;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    },
+    {
+     "category": "html_entity",
+     "label": "HTML entita &#x200B;",
+     "count": 1,
+     "severity": "low",
+     "action": "replace",
+     "note": "Dekódováno na znak před analýzou."
+    }
+   ],
+   "diff": [
+    {
+     "op": "equal",
+     "text": "Text s HTML entitami: "
+    },
+    {
+     "op": "delete",
+     "text": "Pr&iacute;li&scaron;"
+    },
+    {
+     "op": "insert",
+     "text": "Príliš"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "&#382;lu&#357;ou&#269;k&yacute;"
+    },
+    {
+     "op": "insert",
+     "text": "žluťoučký"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "k&uring;&#328;."
+    },
+    {
+     "op": "insert",
+     "text": "kůň."
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "Mezera&nbsp;pevn&aacute;"
+    },
+    {
+     "op": "insert",
+     "text": "Mezera pevná"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "a&nbsp;dal&scaron;&iacute;"
+    },
+    {
+     "op": "insert",
+     "text": "a další"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "&zwj;"
+    },
+    {
+     "op": "insert",
+     "text": "‍"
+    },
+    {
+     "op": "equal",
+     "text": " "
+    },
+    {
+     "op": "delete",
+     "text": "zero&zwnj;width"
+    },
+    {
+     "op": "insert",
+     "text": "zero‌width"
+    },
+    {
+     "op": "equal",
+     "text": " entity. Ampersand "
+    },
+    {
+     "op": "delete",
+     "text": "&amp;"
+    },
+    {
+     "op": "insert",
+     "text": "&"
+    },
+    {
+     "op": "equal",
+     "text": " a uvozovky "
+    },
+    {
+     "op": "delete",
+     "text": "&bdquo;takto&ldquo;."
+    },
+    {
+     "op": "insert",
+     "text": "„takto“."
+    },
+    {
+     "op": "equal",
+     "text": " Zero width space jako "
+    },
+    {
+     "op": "delete",
+     "text": "&#8203;"
+    },
+    {
+     "op": "insert",
+     "text": "​"
+    },
+    {
+     "op": "equal",
+     "text": " a "
+    },
+    {
+     "op": "delete",
+     "text": "&#x200B;."
+    },
+    {
+     "op": "insert",
+     "text": "​."
+    },
+    {
+     "op": "equal",
+     "text": "\n"
+    }
+   ],
+   "verification_status": "unsupported",
+   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
+   "limitations": [
+    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
+    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
+    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
+    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
+    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
+   ],
+   "language": "cs",
+   "elapsed_ms": 0,
+   "created_at": "2026-10-08T09:53:47.403Z",
+   "options": {}
   },
   {
    "schema_version": "1.0",
@@ -1585,8 +1886,8 @@
     "Žádný lokální model ani LLM backend není nakonfigurovaný; dewatermark provedl jen Unicode sanitize (fallback sanitize_only)."
    ],
    "language": "cs",
-   "elapsed_ms": 1.55,
-   "created_at": "2026-10-08T09:48:07.850Z",
+   "elapsed_ms": 3.48,
+   "created_at": "2026-10-08T09:53:47.408Z",
    "options": {
     "stat_mode": "auto"
    },
@@ -1604,7 +1905,7 @@
      "warnings": [],
      "metadata": {
       "paraphrase_passes": 0,
-      "latency_ms": 0.983,
+      "latency_ms": 2.402,
       "auto_selected": "sanitize_only",
       "surrogate_before": {
        "available": false,
@@ -1780,7 +2081,7 @@
         "model_accesses": [],
         "cancelled": false,
         "deadline_exceeded": false,
-        "latency_ms": 0.983
+        "latency_ms": 2.402
        },
        "provenance": {
         "package_version": "0.8.0",
@@ -1955,321 +2256,9 @@
      }
     ]
    }
-  },
-  {
-   "schema_version": "1.0",
-   "tool": "reverse-synthid",
-   "tool_version": "",
-   "mode": "statistical",
-   "kind": "statistical",
-   "input_text": "Text s HTML entitami: Pr&iacute;li&scaron; &#382;lu&#357;ou&#269;k&yacute; k&uring;&#328;. Mezera&nbsp;pevn&aacute; a&nbsp;dal&scaron;&iacute; &zwj; zero&zwnj;width entity. Ampersand &amp; a uvozovky &bdquo;takto&ldquo;. Zero width space jako &#8203; a &#x200B;.\n",
-   "output_text": "Text s HTML entitami: Príliš žluťoučký kůň. Mezera pevná a další ‍ zero‌width entity. Ampersand & a uvozovky „takto“. Zero width space jako ​ a ​.\n",
-   "changes_count": 20,
-   "removed_unicode_count": 0,
-   "rewritten_segments_count": 0,
-   "findings": [
-    {
-     "category": "html_entity",
-     "label": "HTML entita &iacute;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &scaron;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#382;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#357;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#269;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &yacute;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &uring;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#328;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &nbsp;",
-     "count": 2,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &aacute;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &zwj;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &zwnj;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &amp;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &bdquo;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &ldquo;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#8203;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    },
-    {
-     "category": "html_entity",
-     "label": "HTML entita &#x200B;",
-     "count": 1,
-     "severity": "low",
-     "action": "replace",
-     "note": "Dekódováno na znak před analýzou."
-    }
-   ],
-   "diff": [
-    {
-     "op": "equal",
-     "text": "Text s HTML entitami: "
-    },
-    {
-     "op": "delete",
-     "text": "Pr&iacute;li&scaron;"
-    },
-    {
-     "op": "insert",
-     "text": "Príliš"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "&#382;lu&#357;ou&#269;k&yacute;"
-    },
-    {
-     "op": "insert",
-     "text": "žluťoučký"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "k&uring;&#328;."
-    },
-    {
-     "op": "insert",
-     "text": "kůň."
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "Mezera&nbsp;pevn&aacute;"
-    },
-    {
-     "op": "insert",
-     "text": "Mezera pevná"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "a&nbsp;dal&scaron;&iacute;"
-    },
-    {
-     "op": "insert",
-     "text": "a další"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "&zwj;"
-    },
-    {
-     "op": "insert",
-     "text": "‍"
-    },
-    {
-     "op": "equal",
-     "text": " "
-    },
-    {
-     "op": "delete",
-     "text": "zero&zwnj;width"
-    },
-    {
-     "op": "insert",
-     "text": "zero‌width"
-    },
-    {
-     "op": "equal",
-     "text": " entity. Ampersand "
-    },
-    {
-     "op": "delete",
-     "text": "&amp;"
-    },
-    {
-     "op": "insert",
-     "text": "&"
-    },
-    {
-     "op": "equal",
-     "text": " a uvozovky "
-    },
-    {
-     "op": "delete",
-     "text": "&bdquo;takto&ldquo;."
-    },
-    {
-     "op": "insert",
-     "text": "„takto“."
-    },
-    {
-     "op": "equal",
-     "text": " Zero width space jako "
-    },
-    {
-     "op": "delete",
-     "text": "&#8203;"
-    },
-    {
-     "op": "insert",
-     "text": "​"
-    },
-    {
-     "op": "equal",
-     "text": " a "
-    },
-    {
-     "op": "delete",
-     "text": "&#x200B;."
-    },
-    {
-     "op": "insert",
-     "text": "​."
-    },
-    {
-     "op": "equal",
-     "text": "\n"
-    }
-   ],
-   "verification_status": "unsupported",
-   "verification_note": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)",
-   "limitations": [
-    "Statistická mitigace je experimentální a nedeterministická; výsledek se mezi běhy liší.",
-    "U češtiny může přepis zhoršit styl, skloňování nebo posunout význam (čísla, negace, terminologie).",
-    "Produkční vodoznak Claude / Gemini nelze prohlásit za odstraněný: kompatibilní nezávislý detektor není veřejně dostupný.",
-    "Nástroj je anglický: synonyma, výplňová slova i prompt jsou EN; na češtině dělá málo nebo škodí.",
-    "Detektor používá veřejné ukázkové klíče SynthID + GPT-2 tokenizer; neříká nic o produkčním Gemini/Claude vodoznaku."
-   ],
-   "language": "cs",
-   "elapsed_ms": 0,
-   "created_at": "2026-10-08T09:48:07.850Z",
-   "options": {}
   }
  ],
  "summary": [
-  {
-   "tool": "dewatermark",
-   "mode": "sanitize",
-   "kind": "deterministic",
-   "changes_count": 26,
-   "removed_unicode_count": 6,
-   "rewritten_segments_count": 0,
-   "verification_status": "unicode_verified",
-   "output_sha_prefix": "29e6beb30a88",
-   "elapsed_ms": 0.56
-  },
   {
    "tool": "watermarks-remover",
    "mode": "sanitize",
@@ -2279,7 +2268,18 @@
    "rewritten_segments_count": 0,
    "verification_status": "unicode_verified",
    "output_sha_prefix": "29e6beb30a88",
-   "elapsed_ms": 56.96
+   "elapsed_ms": 59.95
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "sanitize",
+   "kind": "deterministic",
+   "changes_count": 26,
+   "removed_unicode_count": 6,
+   "rewritten_segments_count": 0,
+   "verification_status": "unicode_verified",
+   "output_sha_prefix": "29e6beb30a88",
+   "elapsed_ms": 0.4
   },
   {
    "tool": "watermarks-remover",
@@ -2290,18 +2290,7 @@
    "rewritten_segments_count": 0,
    "verification_status": "unsupported",
    "output_sha_prefix": "666bf33d9e08",
-   "elapsed_ms": 40.88
-  },
-  {
-   "tool": "dewatermark",
-   "mode": "statistical",
-   "kind": "statistical",
-   "changes_count": 26,
-   "removed_unicode_count": 6,
-   "rewritten_segments_count": 0,
-   "verification_status": "unsupported",
-   "output_sha_prefix": "8780f398dfb6",
-   "elapsed_ms": 1.55
+   "elapsed_ms": 78.44
   },
   {
    "tool": "reverse-synthid",
@@ -2313,6 +2302,17 @@
    "verification_status": "unsupported",
    "output_sha_prefix": "666bf33d9e08",
    "elapsed_ms": 0
+  },
+  {
+   "tool": "dewatermark",
+   "mode": "statistical",
+   "kind": "statistical",
+   "changes_count": 26,
+   "removed_unicode_count": 6,
+   "rewritten_segments_count": 0,
+   "verification_status": "unsupported",
+   "output_sha_prefix": "8780f398dfb6",
+   "elapsed_ms": 3.48
   }
  ],
  "capabilities": {
@@ -2320,6 +2320,7 @@
    "available": true,
    "version": "0.8.0",
    "license": "MIT",
+   "trust": "low: 7★, 0 forků, jediný autor (říjen 2026); používej jako křížovou kontrolu, ne jako primární nástroj",
    "modes": {
     "analyze": "deterministic",
     "sanitize": "deterministic",

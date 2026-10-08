@@ -36,6 +36,7 @@ def info() -> dict[str, Any]:
         "available": True,
         "version": getattr(dw, "__version__", "?"),
         "license": "MIT",
+        "trust": "low: 7★, 0 forků, jediný autor (říjen 2026); používej jako křížovou kontrolu, ne jako primární nástroj",
         "modes": {
             "analyze": "deterministic",
             "sanitize": "deterministic",
@@ -73,6 +74,8 @@ def run(text: str, mode: str, options: dict[str, Any] | None = None) -> dict[str
         return core.error_report("dewatermark", mode, text, "dewatermark není nainstalován")
     version = getattr(dw, "__version__", "")
     profile = options.get("profile", "safe")
+    if profile not in ("safe", "aggressive"):  # "strict" je prohlížečový profil, dewatermark ho nezná
+        profile = "safe"
     preserve_cz = bool(options.get("czech_nbsp", True))
     lim = [core.COMMON_LIMITATIONS["unicode_not_statistical"], core.COMMON_LIMITATIONS["detector_scoped"]]
 
