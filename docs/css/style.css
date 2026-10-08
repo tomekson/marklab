@@ -106,6 +106,8 @@ select { font: inherit; font-size: 13px; color: var(--ink); background: var(--su
 .inv { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .04em; line-height: 1.35; padding: 0 4px; border-radius: 3px; background: var(--uv-bg); color: var(--uv); border: 1px solid var(--uv-line); vertical-align: 1px; margin: 0 1px; }
 .inv.sp { background: var(--sp-bg); color: var(--sp); border-color: color-mix(in oklab, var(--sp) 35%, transparent); }
 .sp-mark { color: var(--line-2); }
+.typo { text-decoration: underline wavy var(--warn); text-underline-offset: 3px; color: var(--ink); }
+.xray-count u { text-decoration: underline wavy var(--warn); text-underline-offset: 2px; color: var(--ink-2); }
 
 .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px 14px; border-top: 1px solid var(--line); }
 .btn { border: 1px solid var(--line-2); background: var(--surface); border-radius: var(--r); padding: 7px 14px; font-size: 14px; font-weight: 500; cursor: pointer; line-height: 1.4; }

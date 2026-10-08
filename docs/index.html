@@ -70,6 +70,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d==='dar
           <fieldset>
             <legend>Čeština a vstup</legend>
             <label class="check"><input type="checkbox" id="opt-strict" checked> <span>Přísný profil <small>smaže všechny formátovací znaky (jako watermarks-remover)</small></span></label>
+            <label class="check"><input type="checkbox" id="opt-typo" checked> <span>Typografické stopy na české konvence <small>— na –, “ ” na „ “, • na -, … na ...</small></span></label>
             <label class="check"><input type="checkbox" id="opt-czech" checked> <span>Vrátit pevné mezery <small>za k, s, v, z a v číslech (1 000 Kč)</small></span></label>
             <label class="check"><input type="checkbox" id="opt-entities" checked> <span>Dekódovat HTML entity <small>&amp;nbsp; &amp;#8203;</small></span></label>
             <label class="check"><input type="checkbox" id="opt-strip"> <span>Odstranit HTML značky <small>zapne se u .html</small></span></label>
@@ -134,16 +135,17 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d==='dar
       <dt>ověřeno</dt><dd>Po očištění stejná inspekce nic nehlásí. Platí jen pro skryté Unicode znaky.</dd>
       <dt>přísný profil</dt><dd>Smaže všechny formátovací znaky (včetně Word Joiner a soft hyphen) stejně jako <a href="https://github.com/guillaumemeyer/watermarks-remover">watermarks-remover</a>. Safe profil z projektu <a href="https://github.com/cyzanfar/text-watermark-remover">dewatermark</a> (7★, jen křížová kontrola) nechává znaky s možným legitimním použitím.</dd>
       <dt>pevné mezery</dt><dd>Nástroje je mění na obyčejné; za jednopísmennými předložkami a v číslech je marklab vrací, protože to je správná česká typografie.</dd>
+      <dt>typografické stopy</dt><dd>Dlouhé pomlčky, anglické uvozovky, odrážky • a trojtečka jsou u anglicky trénovaných modelů časté. Rentgen je podtrhne, očištění je převede na české konvence. Je to úprava stylu, ne odstranění vodoznaku.</dd>
       <dt>přepsat modelem</dt><dd>Experimentální. Jen s lokálním bridge a lokálním LLM. Výsledek je vždy „neověřeno“, dokud ho nepotvrdí kompatibilní detektor, a pro Claude ani Gemini takový veřejně není. U češtiny hrozí posun významu.</dd>
     </dl>
     <p><a href="https://github.com/tomekson/marklab">Kód a README</a> · reverse-SynthID-text (Apache-2.0) jen přes bridge.</p>
   </section>
 </main>
 
-<footer class="foot"><span>Statická stránka. Bez serveru, bez analytiky, text zůstává v prohlížeči.</span><span class="mono" id="version">v0.2.1</span></footer>
+<footer class="foot"><span>Statická stránka. Bez serveru, bez analytiky, text zůstává v prohlížeči.</span><span class="mono" id="version">v0.3.0</span></footer>
 
 <script type="module">
-import("./js/app.js?v=0.2.1").catch((e) => {
+import("./js/app.js?v=0.3.0").catch((e) => {
   const s = document.getElementById("status");
   s.textContent = "Aplikace se nenačetla: " + e.message + " (zkontrolujte, že jsou dostupné soubory v js/ a vendor/).";
   s.className = "status err";

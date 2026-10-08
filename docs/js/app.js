@@ -1,6 +1,6 @@
-import * as engine from "./engine.js?v=0.2.1";
-import * as bridge from "./bridge.js?v=0.2.1";
-import { docxToText } from "./docx.js?v=0.2.1";
+import * as engine from "./engine.js?v=0.3.0";
+import * as bridge from "./bridge.js?v=0.3.0";
+import { docxToText } from "./docx.js?v=0.3.0";
 
 const $ = (s) => document.querySelector(s);
 const input = $("#input"), status = $("#status");
@@ -29,6 +29,7 @@ function reveal(s) {
     else if (cp >= 0xfe00 && cp <= 0xfe0f) out += `<span class="inv">VS${cp - 0xfe00 + 1}</span>`;
     else if ((cp >= 0x2066 && cp <= 0x2069) || (cp >= 0x202a && cp <= 0x202e)) out += `<span class="inv">BIDI U+${cp.toString(16).toUpperCase()}</span>`;
     else if (/\p{Cf}/u.test(ch)) out += `<span class="inv">U+${cp.toString(16).toUpperCase().padStart(4, "0")}</span>`;
+    else if (engine.TYPO_CHARS.test(ch)) { engine.TYPO_CHARS.lastIndex = 0; out += `<span class="typo" title="typografická stopa">${esc(ch)}</span>`; }
     else if (ch === " ") out += `<span class="sp-mark">·</span>`;
     else out += esc(ch);
   }
@@ -40,7 +41,8 @@ function updateXray() {
   const n = Array.from(t).length;
   const hidden = (t.match(HIDDEN_RE) || []).length;
   const ent = (t.match(/&(#x[0-9a-fA-F]+|#[0-9]+|[A-Za-z][A-Za-z0-9]{1,31});/g) || []).length;
-  $("#xray-count").innerHTML = n === 0 ? "0 znaků" : `${n.toLocaleString("cs")} znaků · <b>${hidden}</b> skrytých${ent ? ` · ${ent} HTML entit` : ""}`;
+  const typo = (t.match(engine.TYPO_CHARS) || []).length;
+  $("#xray-count").innerHTML = n === 0 ? "0 znaků" : `${n.toLocaleString("cs")} znaků · <b>${hidden}</b> skrytých · <u>${typo}</u> typografických${ent ? ` · ${ent} HTML entit` : ""}`;
   $("#xray-view").innerHTML = t.length > 20000 ? `<span class="empty">Text je delší než 20 000 znaků, živý náhled je vypnutý.</span>` : reveal(t);
 }
 function setText(t) { input.value = t; updateXray(); }
@@ -78,7 +80,7 @@ sel.addEventListener("change", async () => {
 function opts() {
   const cz = $("#opt-czech").checked, ent = $("#opt-entities").checked, strip = $("#opt-strip").checked;
   return { czechNbsp: cz, czech_nbsp: cz, decodeEntities: ent, decode_entities: ent, stripHtml: strip, strip_html: strip,
-    profile: $("#opt-strict").checked ? "strict" : "safe", tactic: $("#opt-tactic").value, method: "perturb" };
+    profile: $("#opt-strict").checked ? "strict" : "safe", typography: $("#opt-typo").checked, tactic: $("#opt-tactic").value, method: "perturb" };
 }
 const engineName = () => document.querySelector('input[name="engine"]:checked').value;
 
@@ -128,7 +130,10 @@ function feedback(rep) {
   if (rep.mode === "analyze") return rep.findings.length ? `Analýza hotová: ${rep.findings.length} druhů nálezů (${t}).` : `Analýza hotová: nic skrytého (${t}).`;
   if (rep.mode === "compare") return `Porovnáno ${rep.pipelines.length} pipeline (${t}).`;
   if (rep.mode === "statistical") return rep.verification_status === "unsupported" ? `Přepis neproběhl, viz výsledek (${t}).` : `Přepsáno, neověřeno (${t}).`;
-  return rep.changes_count === 0 ? `Nebylo co odstranit, text je beze změny (${t}).` : `Odstraněno ${rep.changes_count} znaků (${t}).`;
+  if (rep.changes_count === 0) return `Nebylo co odstranit, text je beze změny (${t}).`;
+  const typo = rep.findings.filter((f) => f.category === "typography" && f.action === "replace").reduce((a, f) => a + f.count, 0);
+  const hidden = rep.changes_count - typo;
+  return `Odstraněno ${hidden} skrytých znaků, převedeno ${typo} typografických (${t}).`;
 }
 
 // ---------------------------------------------------------------- render
@@ -146,7 +151,11 @@ function render(rep) {
   $("#result-title").textContent = `Výsledek · ${rep.tool} · ${rep.mode}`;
   const det = rep.kind === "deterministic";
   const [cls, title, desc] = VERDICT[rep.verification_status] || ["info", rep.verification_status, ""];
-  if (rep.mode === "sanitize" && rep.changes_count === 0 && cls === "ok") {
+  const typoN = rep.findings.filter((f) => f.category === "typography" && f.action === "replace").reduce((a, f) => a + f.count, 0);
+  if (rep.mode === "sanitize" && rep.changes_count === typoN && typoN > 0 && cls === "ok") {
+    $("#verify-box").className = "verdict info";
+    $("#verify-box").innerHTML = `<div class="k"><b>Žádný skrytý znak, jen typografie</b><span class="eyebrow">deterministické</span></div><p>Text neobsahuje skryté Unicode znaky. Převedeno ${typoN} typografických stop na české konvence. Statistický vodoznak ve volbě slov tím nezmizí.</p>`;
+  } else if (rep.mode === "sanitize" && rep.changes_count === 0 && cls === "ok") {
     $("#verify-box").className = "verdict info";
     $("#verify-box").innerHTML = `<div class="k"><b>Nebylo co odstranit</b><span class="eyebrow">${det ? "deterministické" : "experimentální"}</span></div><p>Text neobsahuje žádný skrytý Unicode znak podle použité politiky. Výstup je totožný se vstupem.</p>`;
   } else {
@@ -156,8 +165,8 @@ function render(rep) {
   $("#summary-cards").innerHTML = [
     [rep.changes_count, "změn celkem", rep.changes_count ? "uv" : ""],
     [rep.removed_unicode_count, "skrytých znaků a entit", ""],
+    [typoN, "typografických převodů", ""],
     [rep.rewritten_segments_count, det ? "přepsaných segmentů (0 u cleanupu)" : "přepsaných segmentů", ""],
-    [rep.elapsed_ms, "ms", ""],
   ].map(([v, l, c]) => `<div><div class="v ${c}">${v}</div><div class="l">${l}</div></div>`).join("");
 
   const tb = $("#findings"); tb.innerHTML = "";

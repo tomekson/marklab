@@ -20,6 +20,7 @@ Online (po publikaci): https://tomekson.github.io/marklab/
 | Upload .txt / .md / .html / .docx, drag & drop | prohlížeč | funguje (.docx bez knihoven přes DecompressionStream) |
 | Diff před/po, zviditelnění skrytých znaků, export .txt / .json | prohlížeč | funguje |
 | Compare pipelines (safe vs strict) | prohlížeč | funguje |
+| Typografické stopy (—, “ ”, •, …, ’) → české konvence; rentgen je podtrhne | prohlížeč | funguje, jen styl, ne vodoznak |
 | dewatermark `analyze` / `sanitize` / `remove` | bridge | funguje; `remove` bez modelu = fallback sanitize |
 | watermarks-remover Layer A (`inspect_text`, `clean_text`, stylometrie) | bridge | funguje |
 | watermarks-remover Layer B (`rewrite_text`) | bridge | jen `print-prompt`, s Ollama/OpenAI-compatible backendem přepis |
@@ -94,6 +95,8 @@ Detail: [notes/ARCHITECTURE.md](notes/ARCHITECTURE.md).
 - **Claude / Gemini produkční vodoznak** nelze prohlásit za odstraněný. dewatermark tyto detektory registruje jako `unsupported_pending_spec`; reverse-SynthID má jen veřejné ukázkové klíče.
 
 ## Česká specifika v implementaci
+
+- **Typografické stopy:** běžný AI text žádné skryté znaky neobsahuje, rentgen proto hlásí 0. Co u něj lze deterministicky ukázat a změnit, jsou znaky typické pro anglicky trénované modely: em dash → „ – “, “ ” → „ “, ‘ ’ → ‚ ‘, • → -, … → ..., apostrof uvnitř slova → '. Je to úprava stylu, výslovně ne odstranění vodoznaku (volba „Typografické stopy na české konvence“, zapnutá).
 
 - **Pevná mezera** za jednopísmennými předložkami (k, s, v, z, o, u, a, i) a v číslech (1 000 Kč) je správná typografie. Oba nástroje ji převádí na obyčejnou mezeru; dashboard ji po očištění vrací (volba „Zachovat pevné mezery“, zapnutá).
 - **Diakritika** zůstává nedotčená v safe profilech obou nástrojů (jen NFC). Profil `aggressive` (dewatermark) a `--nfkc` (watermarks-remover) jsou ztrátové a dashboard je nepoužívá.

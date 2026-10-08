@@ -70,6 +70,43 @@ export function restoreCzechNbsp(cleaned, pairs) {
   return { text: out, restored };
 }
 
+// ---------------------------------------------------------------- typografické stopy
+// Znaky typické pro výstup LLM v angličtině. Nejsou to vodoznaky, jen stylové stopy;
+// převod na české konvence je deterministický a významově neutrální.
+export const TYPO_RULES = [
+  { re: /\s*\u2014\s*/g, cp: "U+2014", label: "dlouhá pomlčka (em dash)", to: " \u2013 ", toLabel: "pomlčka s mezerami –" },
+  { re: /\u201c/g, cp: "U+201C", label: "anglická uvozovka otevírací “", to: "\u201e", toLabel: "„" },
+  { re: /\u201d/g, cp: "U+201D", label: "anglická uvozovka zavírací ”", to: "\u201c", toLabel: "“" },
+  { re: /\u2018/g, cp: "U+2018", label: "anglická jednoduchá uvozovka ‘", to: "\u201a", toLabel: "‚" },
+  { re: /(?<=\p{L})\u2019(?=\p{L})/gu, cp: "U+2019", label: "apostrof ’ uvnitř slova", to: "'", toLabel: "'" },
+  { re: /\u2019/g, cp: "U+2019", label: "anglická jednoduchá uvozovka zavírací ’", to: "\u2018", toLabel: "‘" },
+  { re: /^[ \t]*\u2022[ \t]+/gm, cp: "U+2022", label: "odrážka •", to: "- ", toLabel: "- " },
+  { re: /\u2026/g, cp: "U+2026", label: "trojtečka … (jeden znak)", to: "...", toLabel: "..." },
+];
+export const TYPO_CHARS = /[\u2014\u201c\u201d\u2018\u2019\u2022\u2026]/gu;
+
+export function typographyFindings(text) {
+  const out = [];
+  for (const r of TYPO_RULES) {
+    const n = (text.match(r.re) || []).length;
+    if (n) out.push({ category: "typography", label: r.label, codepoint: r.cp, count: n, severity: "info", action: "none", note: `Stylová stopa, ne vodoznak. Převod: ${r.toLabel}` });
+  }
+  return out;
+}
+
+export function czechTypography(text) {
+  let changed = 0;
+  const findings = [];
+  for (const r of TYPO_RULES) {
+    const n = (text.match(r.re) || []).length;
+    if (!n) continue;
+    text = text.replace(r.re, r.to);
+    changed += n;
+    findings.push({ category: "typography", label: r.label, codepoint: r.cp, count: n, severity: "low", action: "replace", note: `Převedeno na ${r.toLabel}` });
+  }
+  return { text, changed, findings };
+}
+
 // ---------------------------------------------------------------- strict sweep (druhá pipeline)
 const CF_RE = /\p{Cf}/gu;
 const PICTO = /\p{Extended_Pictographic}/u;
@@ -146,6 +183,7 @@ export function analyze(input, opts = {}) {
   const findings = [...pre.findings, ...findingsFromInspect(matches)];
   const cz = czechNbspPairs(pre.text).size;
   if (cz) findings.push({ category: "czech_typography", label: "Pevná mezera v českém kontextu (předložka, číslo)", count: cz, severity: "info", action: "preserve", note: "Správná česká typografie, nejde o vodoznak." });
+  findings.push(...typographyFindings(pre.text));
   return makeReport({
     tool: "browser (dewatermark-js tabulka)", tool_version: POLICY_VERSION, mode: "analyze", kind: "deterministic",
     input_text: input, output_text: input, findings, removed_unicode_count: 0, changes_count: 0,
@@ -166,6 +204,10 @@ export function sanitize(input, opts = {}) {
     const s = strictSweep(out); out = s.text; strictRemoved = s.removed;
     if (strictRemoved) findings.push({ category: "format_char", label: "Zbývající formátovací znaky (Cf) odstraněny přísným průchodem", count: strictRemoved, severity: "medium", action: "delete", note: "Např. Word Joiner U+2060, soft hyphen U+00AD; safe profil je zachovává." });
   }
+  let typoChanged = 0;
+  if (opts.typography) {
+    const t = czechTypography(out); out = t.text; typoChanged = t.changed; findings.push(...t.findings);
+  } else findings.push(...typographyFindings(out));
   let restored = 0;
   if (opts.czechNbsp !== false) {
     const r = restoreCzechNbsp(out, czechNbspPairs(pre.text)); out = r.text; restored = r.restored;
@@ -174,10 +216,12 @@ export function sanitize(input, opts = {}) {
   const after = inspectText(out).filter((m) => m.disposition === "actionable");
   const status = after.length === 0 ? "unicode_verified" : "failed";
   const lim = [LIMITS.unicode_not_statistical, LIMITS.detector_scoped, LIMITS.browser_only];
+  if (typoChanged) lim.push("Typografický převod mění jen interpunkci (pomlčky, uvozovky, odrážky); statistický vodoznak ve volbě slov zůstává.");
   return makeReport({
     tool: opts.profile === "strict" ? "browser-strict" : "browser-safe (dewatermark-js)", tool_version: POLICY_VERSION, mode: "sanitize", kind: "deterministic",
     input_text: input, output_text: out, findings,
     removed_unicode_count: rep.edits.length + strictRemoved + pre.findings.reduce((a, f) => a + f.count, 0),
+    changes_count: rep.edits.length + strictRemoved + pre.findings.reduce((a, f) => a + f.count, 0) + typoChanged,
     verification_status: status,
     verification_note: after.length === 0 ? "Po očištění inspekce nehlásí žádný actionable znak." : `Po očištění zbývá ${after.length} actionable znaků.`,
     limitations: lim, elapsed_ms: +(performance.now() - t0).toFixed(2), options: { ...opts, policy: POLICY_VERSION },
