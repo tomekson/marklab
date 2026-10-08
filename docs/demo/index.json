@@ -1,0 +1,320 @@
+{
+ "generated_at": "2026-10-08T09:48:08.169Z",
+ "samples": [
+  {
+   "sample": "01-bezny-odstavec.txt",
+   "title": "bezny odstavec",
+   "file": "01-bezny-odstavec.compare.json",
+   "chars": 241,
+   "pipelines": [
+    {
+     "tool": "dewatermark",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "1af0476a50ed",
+     "elapsed_ms": 1.18
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "1af0476a50ed",
+     "elapsed_ms": 61.5
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1af0476a50ed",
+     "elapsed_ms": 42.89
+    },
+    {
+     "tool": "dewatermark",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1af0476a50ed",
+     "elapsed_ms": 2.07
+    },
+    {
+     "tool": "reverse-synthid",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1af0476a50ed",
+     "elapsed_ms": 0
+    }
+   ]
+  },
+  {
+   "sample": "02-zero-width.txt",
+   "title": "zero width",
+   "file": "02-zero-width.compare.json",
+   "chars": 177,
+   "pipelines": [
+    {
+     "tool": "dewatermark",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 13,
+     "removed_unicode_count": 13,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "fe03a22a44e8",
+     "elapsed_ms": 0.43
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 15,
+     "removed_unicode_count": 15,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "d1664ab7acac",
+     "elapsed_ms": 58.61
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "b262ad3b2f57",
+     "elapsed_ms": 43.21
+    },
+    {
+     "tool": "dewatermark",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 13,
+     "removed_unicode_count": 13,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "fe03a22a44e8",
+     "elapsed_ms": 2.05
+    },
+    {
+     "tool": "reverse-synthid",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "b262ad3b2f57",
+     "elapsed_ms": 0
+    }
+   ]
+  },
+  {
+   "sample": "03-html-entity.txt",
+   "title": "html entity",
+   "file": "03-html-entity.compare.json",
+   "chars": 263,
+   "pipelines": [
+    {
+     "tool": "dewatermark",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 26,
+     "removed_unicode_count": 6,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "29e6beb30a88",
+     "elapsed_ms": 0.56
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 26,
+     "removed_unicode_count": 6,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "29e6beb30a88",
+     "elapsed_ms": 56.96
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 20,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "666bf33d9e08",
+     "elapsed_ms": 40.88
+    },
+    {
+     "tool": "dewatermark",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 26,
+     "removed_unicode_count": 6,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "8780f398dfb6",
+     "elapsed_ms": 1.55
+    },
+    {
+     "tool": "reverse-synthid",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 20,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "666bf33d9e08",
+     "elapsed_ms": 0
+    }
+   ]
+  },
+  {
+   "sample": "04-smisena-interpunkce.txt",
+   "title": "smisena interpunkce",
+   "file": "04-smisena-interpunkce.compare.json",
+   "chars": 262,
+   "pipelines": [
+    {
+     "tool": "dewatermark",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 8,
+     "removed_unicode_count": 8,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "d443714a19ed",
+     "elapsed_ms": 0.6
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 8,
+     "removed_unicode_count": 8,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "d443714a19ed",
+     "elapsed_ms": 54.79
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "34575be5cb4a",
+     "elapsed_ms": 36.84
+    },
+    {
+     "tool": "dewatermark",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 8,
+     "removed_unicode_count": 8,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "7b1e0f0c0d6f",
+     "elapsed_ms": 2.12
+    },
+    {
+     "tool": "reverse-synthid",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "34575be5cb4a",
+     "elapsed_ms": 0
+    }
+   ]
+  },
+  {
+   "sample": "05-odborny-text.txt",
+   "title": "odborny text",
+   "file": "05-odborny-text.compare.json",
+   "chars": 856,
+   "pipelines": [
+    {
+     "tool": "dewatermark",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "1898f549bd72",
+     "elapsed_ms": 2.72
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "sanitize",
+     "kind": "deterministic",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unicode_verified",
+     "output_sha_prefix": "1898f549bd72",
+     "elapsed_ms": 57.55
+    },
+    {
+     "tool": "watermarks-remover",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1898f549bd72",
+     "elapsed_ms": 38.62
+    },
+    {
+     "tool": "dewatermark",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1898f549bd72",
+     "elapsed_ms": 6.35
+    },
+    {
+     "tool": "reverse-synthid",
+     "mode": "statistical",
+     "kind": "statistical",
+     "changes_count": 0,
+     "removed_unicode_count": 0,
+     "rewritten_segments_count": 0,
+     "verification_status": "unsupported",
+     "output_sha_prefix": "1898f549bd72",
+     "elapsed_ms": 0
+    }
+   ]
+  }
+ ]
+}

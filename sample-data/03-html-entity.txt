@@ -1,0 +1,1 @@
+Text s HTML entitami: Pr&iacute;li&scaron; &#382;lu&#357;ou&#269;k&yacute; k&uring;&#328;. Mezera&nbsp;pevn&aacute; a&nbsp;dal&scaron;&iacute; &zwj; zero&zwnj;width entity. Ampersand &amp; a uvozovky &bdquo;takto&ldquo;. Zero width space jako &#8203; a &#x200B;.

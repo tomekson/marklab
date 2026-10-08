@@ -1,0 +1,51 @@
+{
+ "dewatermark": {
+  "available": true,
+  "version": "0.8.0",
+  "license": "MIT",
+  "modes": {
+   "analyze": "deterministic",
+   "sanitize": "deterministic",
+   "statistical": "statistical (vyžaduje lokální model nebo API; bez něj vrací původní text)"
+  },
+  "local_model_cached": false,
+  "llm_configured": false,
+  "detectors": [
+   "anthropic",
+   "anthropic-claude",
+   "claude",
+   "gemini",
+   "gemini-production",
+   "reference-kgw",
+   "reference-kgw-v1",
+   "reference-tournament",
+   "reference-tournament-v1",
+   "reference-unigram",
+   "reference-unigram-v1",
+   "synthid-production",
+   "unicode",
+   "unicode-artifacts-v1"
+  ]
+ },
+ "watermarks-remover": {
+  "available": true,
+  "version": "git 1181fd4",
+  "license": "MIT",
+  "modes": {
+   "analyze": "deterministic (Layer A inspect + volitelná stylometrie, bez LLM)",
+   "sanitize": "deterministic (Layer A clean)",
+   "statistical": "statistical (Layer B rewrite_text, backend=print-prompt)"
+  },
+  "rewrite_backend": "print-prompt"
+ },
+ "reverse-synthid": {
+  "available": false,
+  "license": "Apache-2.0",
+  "modes": {
+   "analyze": "statistical (referenční detektor, jen ukázkové klíče)",
+   "statistical": "statistical (perturb/shuffle/homoglyph bez modelu; paraphrase = gemma-2b-it)"
+  },
+  "english_only": true,
+  "reason": "samostatný venv .venv-synthid není nainstalovaný (scripts/setup.sh --with-synthid)"
+ }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+.work/
+.claude/
+# vendored upstream repos: cloned by scripts/setup.sh, not committed
+vendor/
+# model caches
+.cache/
+models/
+# local-only outputs (demo results in output/ ARE committed)
+output/local/

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tomekson.github.io/text-watermark-lab/schemas/report.v1.json",
+  "title": "text-watermark-lab normalized report v1",
+  "type": "object",
+  "required": ["schema_version", "tool", "mode", "input_text", "output_text", "changes_count",
+               "removed_unicode_count", "rewritten_segments_count", "findings", "diff",
+               "verification_status", "limitations", "language", "elapsed_ms", "created_at", "kind"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "tool": { "type": "string", "description": "engine id, e.g. dewatermark-js, dewatermark, watermarks-remover, reverse-synthid, twl" },
+    "tool_version": { "type": "string" },
+    "mode": { "type": "string", "enum": ["analyze", "sanitize", "statistical", "compare"] },
+    "kind": { "type": "string", "enum": ["deterministic", "statistical"],
+              "description": "deterministic = same output every run, no model; statistical = experimental rewrite / mitigation" },
+    "input_text": { "type": "string" },
+    "output_text": { "type": "string" },
+    "changes_count": { "type": "integer", "minimum": 0 },
+    "removed_unicode_count": { "type": "integer", "minimum": 0 },
+    "rewritten_segments_count": { "type": "integer", "minimum": 0 },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "label", "count", "severity"],
+        "properties": {
+          "category": { "type": "string" },
+          "label": { "type": "string" },
+          "codepoint": { "type": "string" },
+          "count": { "type": "integer" },
+          "severity": { "type": "string", "enum": ["high", "medium", "low", "info"] },
+          "action": { "type": "string", "enum": ["delete", "space", "replace", "preserve", "rewrite", "none"] },
+          "positions": { "type": "array", "items": { "type": "integer" } },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "diff": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["op", "text"],
+        "properties": {
+          "op": { "type": "string", "enum": ["equal", "delete", "insert"] },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unicode_verified", "not_applicable", "mitigation_unverified", "mitigation_verified", "unsupported", "failed"]
+    },
+    "verification_note": { "type": "string" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "language": { "type": "string", "default": "cs" },
+    "elapsed_ms": { "type": "number" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "options": { "type": "object" },
+    "raw": { "type": "object", "description": "unmodified upstream tool output, for debugging" }
+  }
+}
